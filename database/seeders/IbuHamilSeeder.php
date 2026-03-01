@@ -34,6 +34,11 @@ class IbuHamilSeeder extends Seeder
                 'no_hp' => $faker->phoneNumber(),
             ]);
 
+            $kehamilanKe = $faker->numberBetween(1, 5); // Max 5 pregnancies
+            $anakHidup = $faker->numberBetween(0, $kehamilanKe - 1); // Anak hidup cannot be more than kehamilan_ke - 1
+            $keguguran = $faker->numberBetween(0, $kehamilanKe - 1 - $anakHidup); // Keguguran cannot be more than remaining pregnancies
+            if ($keguguran < 0) $keguguran = 0; // Ensure no negative value
+
             ProfilIbuHamil::create([
                 'user_id' => $user->id,
                 'tanggal_lahir' => $tanggalLahir,
@@ -42,14 +47,14 @@ class IbuHamilSeeder extends Seeder
                 'hpl' => $hpl,
                 'golongan_darah' => $faker->randomElement(['A', 'B', 'AB', 'O']),
                 'rhesus' => $faker->randomElement(['+', '-']),
-                'berat_sebelum' => $faker->randomFloat(2, 45, 70), // kg
-                'tinggi_badan' => $faker->randomFloat(2, 150, 175), // cm
+                'berat_sebelum' => $faker->randomFloat(2, 40, 75), // kg, wider range
+                'tinggi_badan' => $faker->randomFloat(2, 145, 180), // cm, wider range
                 'alamat' => $faker->address(),
                 'riwayat_penyakit' => $faker->boolean(30) ? $faker->sentence(3) : 'Tidak ada', // 30% chance of disease
                 'riwayat_alergi' => $faker->boolean(20) ? $faker->word() : 'Tidak ada', // 20% chance of allergy
-                'kehamilan_ke' => $faker->numberBetween(1, 4),
-                'anak_hidup' => $faker->numberBetween(0, 3),
-                'keguguran' => $faker->numberBetween(0, 2),
+                'kehamilan_ke' => $kehamilanKe,
+                'anak_hidup' => $anakHidup,
+                'keguguran' => $keguguran,
             ]);
         }
     }
