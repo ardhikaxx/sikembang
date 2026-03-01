@@ -76,6 +76,7 @@ class DatabaseSeeder extends Seeder
             BookingSeeder::class,
             CatatanKehamilanSeeder::class,
             PenilaianRisikoSeeder::class,
+            ReminderSeeder::class,
         ]);
     }
 }
