@@ -73,6 +73,7 @@ class DatabaseSeeder extends Seeder
             IbuHamilSeeder::class,
             KontenEdukasiSeeder::class,
             KonsultasiSeeder::class,
+            BookingSeeder::class,
         ]);
     }
 }
