@@ -7,7 +7,8 @@ use App\Models\User;
 use App\Models\Konsultasi;
 use App\Models\PesanKonsultasi;
 use App\Models\LampiranKonsultasi;
-use Faker\Factory as Faker;
+// No Faker needed for hardcoded data
+// use Faker\Factory as Faker;
 
 class KonsultasiSeeder extends Seeder
 {
@@ -16,54 +17,98 @@ class KonsultasiSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
+        // No Faker needed
+        // $faker = Faker::create('id_ID');
 
-        // Get all Ibu users
-        $ibuIds = User::where('role', 'ibu_hamil')->pluck('id')->toArray();
-        // Get all Bidan users
-        $bidanIds = User::where('role', 'bidan')->pluck('id')->toArray();
+        // Get specific Bidan and Ibu Hamil users
+        $bidanAdmin = User::where('email', 'bidan@sikembang.com')->first();
+        $ibuFatimah = User::where('email', 'fatimah.azzahra@sikembang.com')->first();
+        $ibuSiti = User::where('email', 'siti.aminah@sikembang.com')->first();
 
-        // Ensure there are ibu and bidan users
-        if (empty($ibuIds) || empty($bidanIds)) {
-            $this->command->info('No Ibu Hamil or Bidan users found. Skipping Konsultasi seeding.');
+        // Ensure users exist
+        if (!$bidanAdmin || !$ibuFatimah || !$ibuSiti) {
+            $this->command->info('Required Bidan or Ibu Hamil users not found. Skipping Konsultasi seeding.');
             return;
         }
 
-        for ($i = 0; $i < 30; $i++) { // Create 30 consultations
-            $ibuId = $faker->randomElement($ibuIds);
-            $bidanId = $faker->randomElement($bidanIds);
+        // --- Konsultasi 1: Aktif, Ibu Fatimah dengan Bidan Admin ---
+        $konsultasi1 = Konsultasi::create([
+            'ibu_id' => $ibuFatimah->id,
+            'bidan_id' => $bidanAdmin->id,
+            'judul' => 'Perkembangan Janin Trimester 1',
+            'status' => 'aktif',
+            'is_read_bidan' => false,
+            'is_read_ibu' => true,
+        ]);
 
-            $konsultasi = Konsultasi::create([
-                'ibu_id' => $ibuId,
-                'bidan_id' => $bidanId,
-                'judul' => $faker->sentence(rand(3, 7)),
-                'status' => $faker->randomElement(['aktif', 'selesai', 'ditutup']),
-                'is_read_bidan' => $faker->boolean(),
-                'is_read_ibu' => $faker->boolean(),
-            ]);
+        $pesan1_1 = PesanKonsultasi::create([
+            'konsultasi_id' => $konsultasi1->id,
+            'pengirim_id' => $ibuFatimah->id,
+            'pesan' => 'Halo Bidan, saya Fatimah. Mau tanya, apakah normal jika sering merasa mual di minggu ke-8 kehamilan?',
+            'is_read' => true,
+        ]);
 
-            // Create 2 to 5 messages for each consultation
-            for ($j = 0; $j < rand(2, 5); $j++) {
-                $senderId = $faker->randomElement([$ibuId, $bidanId]);
-                
-                $pesan = PesanKonsultasi::create([
-                    'konsultasi_id' => $konsultasi->id,
-                    'pengirim_id' => $senderId,
-                    'pesan' => $faker->paragraph(rand(1, 3)),
-                    'is_read' => $faker->boolean(),
-                ]);
+        $pesan1_2 = PesanKonsultasi::create([
+            'konsultasi_id' => $konsultasi1->id,
+            'pengirim_id' => $bidanAdmin->id,
+            'pesan' => 'Halo Ibu Fatimah, mual di trimester pertama sangat umum terjadi. Pastikan Anda tetap makan sedikit tapi sering, hindari makanan berbau menyengat. Jika mual muntah berlebihan, segera periksa ya.',
+            'is_read' => false,
+        ]);
 
-                // 30% chance to add an attachment
-                if ($faker->boolean(30)) {
-                    LampiranKonsultasi::create([
-                        'pesan_id' => $pesan->id,
-                        'nama_file' => $faker->word() . '.' . $faker->fileExtension(),
-                        'path_file' => 'attachments/' . $faker->uuid() . '.' . $faker->fileExtension(),
-                        'tipe_file' => $faker->mimeType(),
-                        'ukuran_file' => $faker->numberBetween(100, 5000), // KB
-                    ]);
-                }
-            }
-        }
+        // --- Konsultasi 2: Selesai, Ibu Siti dengan Bidan Admin (dengan lampiran) ---
+        $konsultasi2 = Konsultasi::create([
+            'ibu_id' => $ibuSiti->id,
+            'bidan_id' => $bidanAdmin->id,
+            'judul' => 'Hasil USG dan Keluhan Nyeri Punggung',
+            'status' => 'selesai',
+            'is_read_bidan' => true,
+            'is_read_ibu' => true,
+        ]);
+
+        $pesan2_1 = PesanKonsultasi::create([
+            'konsultasi_id' => $konsultasi2->id,
+            'pengirim_id' => $ibuSiti->id,
+            'pesan' => 'Selamat siang Bidan, ini hasil USG saya (terlampir) dan saya juga sering merasakan nyeri punggung, apakah ada tips untuk menguranginya?',
+            'is_read' => true,
+        ]);
+
+        LampiranKonsultasi::create([
+            'pesan_id' => $pesan2_1->id,
+            'nama_file' => 'hasil_usg_siti_aminah.pdf',
+            'path_file' => 'attachments/usg_siti_aminah.pdf', // Example path
+            'tipe_file' => 'application/pdf',
+            'ukuran_file' => 512, // KB
+        ]);
+
+        $pesan2_2 = PesanKonsultasi::create([
+            'konsultasi_id' => $konsultasi2->id,
+            'pengirim_id' => $bidanAdmin->id,
+            'pesan' => 'Siang Ibu Siti, terima kasih sudah mengirim hasil USG. Semua terlihat baik. Untuk nyeri punggung, coba gunakan kompres hangat dan lakukan peregangan ringan. Hindari mengangkat beban berat. Jika nyeri berlanjut, kita bisa jadwalkan pemeriksaan fisik.',
+            'is_read' => true,
+        ]);
+        
+        // --- Konsultasi 3: Ditutup, Ibu Fatimah dengan Bidan Admin ---
+        $konsultasi3 = Konsultasi::create([
+            'ibu_id' => $ibuFatimah->id,
+            'bidan_id' => $bidanAdmin->id,
+            'judul' => 'Pertanyaan Tentang Makanan Pantangan',
+            'status' => 'ditutup',
+            'is_read_bidan' => true,
+            'is_read_ibu' => true,
+        ]);
+
+        $pesan3_1 = PesanKonsultasi::create([
+            'konsultasi_id' => $konsultasi3->id,
+            'pengirim_id' => $ibuFatimah->id,
+            'pesan' => 'Bidan, apakah ada makanan tertentu yang harus saya hindari selama kehamilan? Terutama seafood.',
+            'is_read' => true,
+        ]);
+
+        $pesan3_2 = PesanKonsultasi::create([
+            'konsultasi_id' => $konsultasi3->id,
+            'pengirim_id' => $bidanAdmin->id,
+            'pesan' => 'Beberapa jenis seafood dengan merkuri tinggi sebaiknya dihindari. Namun, seafood rendah merkuri seperti salmon atau udang baik untuk omega-3. Hindari juga makanan mentah atau setengah matang. Konsultasi ini saya tutup karena sudah terjawab ya Bu.',
+            'is_read' => true,
+        ]);
     }
 }
