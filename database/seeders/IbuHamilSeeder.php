@@ -6,7 +6,8 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\ProfilIbuHamil;
 use Illuminate\Support\Facades\Hash;
-use Faker\Factory as Faker;
+// No Faker needed for hardcoded data
+// use Faker\Factory as Faker; 
 
 class IbuHamilSeeder extends Seeder
 {
@@ -15,51 +16,88 @@ class IbuHamilSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID'); // Use Indonesian faker for more realistic names/addresses
+        // Hardcoded data for Ibu Hamil
+        $ibuHamilData = [
+            [
+                'user' => [
+                    'nama_lengkap' => 'Fatimah Azzahra',
+                    'email' => 'fatimah.azzahra@sikembang.com',
+                    'password' => Hash::make('password'),
+                    'role' => 'ibu_hamil',
+                    'no_hp' => '081234567891',
+                ],
+                'profil' => [
+                    'tanggal_lahir' => '1995-03-15',
+                    'usia' => 31,
+                    'hpht' => '2025-01-20',
+                    'hpl' => '2025-10-27',
+                    'golongan_darah' => 'O',
+                    'rhesus' => '+',
+                    'berat_sebelum' => 58.5,
+                    'tinggi_badan' => 158.0,
+                    'alamat' => 'Jl. Mawar No. 5, Jakarta',
+                    'riwayat_penyakit' => 'Diabetes Gestasional',
+                    'riwayat_alergi' => 'Obat-obatan (antibiotik)',
+                    'kehamilan_ke' => 2,
+                    'anak_hidup' => 1,
+                    'keguguran' => 0,
+                ]
+            ],
+            [
+                'user' => [
+                    'nama_lengkap' => 'Siti Aminah',
+                    'email' => 'siti.aminah@sikembang.com',
+                    'password' => Hash::make('password'),
+                    'role' => 'ibu_hamil',
+                    'no_hp' => '081234567892',
+                ],
+                'profil' => [
+                    'tanggal_lahir' => '1998-07-22',
+                    'usia' => 28,
+                    'hpht' => '2025-02-10',
+                    'hpl' => '2025-11-17',
+                    'golongan_darah' => 'A',
+                    'rhesus' => '+',
+                    'berat_sebelum' => 52.0,
+                    'tinggi_badan' => 162.0,
+                    'alamat' => 'Jl. Kenanga No. 10, Bandung',
+                    'riwayat_penyakit' => 'Tidak ada',
+                    'riwayat_alergi' => 'Tidak ada',
+                    'kehamilan_ke' => 1,
+                    'anak_hidup' => 0,
+                    'keguguran' => 0,
+                ]
+            ],
+            [
+                'user' => [
+                    'nama_lengkap' => 'Dian Pertiwi',
+                    'email' => 'dian.pertiwi@sikembang.com',
+                    'password' => Hash::make('password'),
+                    'role' => 'ibu_hamil',
+                    'no_hp' => '081234567893',
+                ],
+                'profil' => [
+                    'tanggal_lahir' => '1993-11-01',
+                    'usia' => 32,
+                    'hpht' => '2024-12-05',
+                    'hpl' => '2025-09-12',
+                    'golongan_darah' => 'B',
+                    'rhesus' => '-',
+                    'berat_sebelum' => 65.0,
+                    'tinggi_badan' => 160.0,
+                    'alamat' => 'Jl. Melati No. 15, Surabaya',
+                    'riwayat_penyakit' => 'Hipertensi Kronis',
+                    'riwayat_alergi' => 'Seafood',
+                    'kehamilan_ke' => 3,
+                    'anak_hidup' => 2,
+                    'keguguran' => 0,
+                ]
+            ],
+        ];
 
-        for ($i = 0; $i < 50; $i++) {
-            // Generate birth date between 20-40 years ago
-            $tanggalLahir = $faker->dateTimeBetween('-40 years', '-20 years')->format('Y-m-d');
-            $usia = now()->diff(new \DateTime($tanggalLahir))->y;
-
-            // Generate HPHT within the last 9 months
-            $hpht = $faker->dateTimeBetween('-9 months', 'now')->format('Y-m-d');
-            $hpl = date('Y-m-d', strtotime($hpht . ' +280 days'));
-
-            $namaLengkap = $faker->name('female');
-            $emailBase = strtolower(str_replace(' ', '.', $namaLengkap));
-            $email = $faker->unique()->safeEmail($emailBase . '@sikembang.com'); // Using sikembang.com as domain
-
-            $user = User::create([
-                'nama_lengkap' => $namaLengkap,
-                'email' => $email,
-                'password' => Hash::make('password'), // Common password for seeded users
-                'role' => 'ibu_hamil',
-                'no_hp' => $faker->phoneNumber(),
-            ]);
-
-            $kehamilanKe = $faker->numberBetween(1, 5); // Max 5 pregnancies
-            $anakHidup = $faker->numberBetween(0, $kehamilanKe - 1); // Anak hidup cannot be more than kehamilan_ke - 1
-            $keguguran = $faker->numberBetween(0, $kehamilanKe - 1 - $anakHidup); // Keguguran cannot be more than remaining pregnancies
-            if ($keguguran < 0) $keguguran = 0; // Ensure no negative value
-
-            ProfilIbuHamil::create([
-                'user_id' => $user->id,
-                'tanggal_lahir' => $tanggalLahir,
-                'usia' => $usia,
-                'hpht' => $hpht,
-                'hpl' => $hpl,
-                'golongan_darah' => $faker->randomElement(['A', 'B', 'AB', 'O']),
-                'rhesus' => $faker->randomElement(['+', '-']),
-                'berat_sebelum' => $faker->randomFloat(2, 40, 75), // kg, wider range
-                'tinggi_badan' => $faker->randomFloat(2, 145, 180), // cm, wider range
-                'alamat' => $faker->address(),
-                'riwayat_penyakit' => $faker->boolean(30) ? $faker->sentence(3) : 'Tidak ada', // 30% chance of disease
-                'riwayat_alergi' => $faker->boolean(20) ? $faker->word() : 'Tidak ada', // 20% chance of allergy
-                'kehamilan_ke' => $kehamilanKe,
-                'anak_hidup' => $anakHidup,
-                'keguguran' => $keguguran,
-            ]);
+        foreach ($ibuHamilData as $data) {
+            $user = User::create($data['user']);
+            $user->profilIbuHamil()->create($data['profil']);
         }
     }
 }
