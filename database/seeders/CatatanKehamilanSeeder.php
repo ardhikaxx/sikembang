@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\CatatanKehamilan;
+use App\Models\ProfilIbuHamil;
 use Faker\Factory as Faker;
 
 class CatatanKehamilanSeeder extends Seeder
@@ -26,12 +27,27 @@ class CatatanKehamilanSeeder extends Seeder
         }
 
         foreach ($ibuIds as $ibuId) {
+            $profilIbu = ProfilIbuHamil::where('user_id', $ibuId)->first();
+
+            // Ensure ibu has a profile and HPHT
+            if (!$profilIbu || !$profilIbu->hpht) {
+                $this->command->warn("Skipping catatan kehamilan for user ID $ibuId: No profile or HPHT found.");
+                continue;
+            }
+
+            $hphtDate = new \DateTime($profilIbu->hpht);
+
             // Create 2 to 5 catatan kehamilan for each ibu
             for ($i = 0; $i < rand(2, 5); $i++) {
+                // tanggal_periksa must be after HPHT and before current date
+                $tanggalPeriksa = $faker->dateTimeBetween($hphtDate, 'now');
+                $usiaKehamilanDays = $tanggalPeriksa->diff($hphtDate)->days;
+                $usiaKehamilanWeeks = floor($usiaKehamilanDays / 7);
+
                 CatatanKehamilan::create([
                     'ibu_id' => $ibuId,
-                    'tanggal_periksa' => $faker->dateTimeBetween('-6 months', 'now')->format('Y-m-d'),
-                    'usia_kehamilan' => $faker->numberBetween(8, 40),
+                    'tanggal_periksa' => $tanggalPeriksa->format('Y-m-d'),
+                    'usia_kehamilan' => $usiaKehamilanWeeks, // Calculated based on HPHT and tanggal_periksa
                     'berat_badan' => $faker->randomFloat(2, 50, 80),
                     'tekanan_darah' => $faker->numberBetween(90, 140) . '/' . $faker->numberBetween(60, 90),
                     'denyut_janin' => $faker->numberBetween(120, 160),
