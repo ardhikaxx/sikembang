@@ -5,7 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Reminder;
-use Faker\Factory as Faker;
+// No Faker needed for hardcoded data
+// use Faker\Factory as Faker;
 
 class ReminderSeeder extends Seeder
 {
@@ -14,33 +15,72 @@ class ReminderSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
+        // No Faker needed
+        // $faker = Faker::create('id_ID');
 
-        // Get all Ibu users
-        $ibuIds = User::where('role', 'ibu_hamil')->pluck('id')->toArray();
+        // Get specific Ibu Hamil users
+        $ibuFatimah = User::where('email', 'fatimah.azzahra@sikembang.com')->first();
+        $ibuSiti = User::where('email', 'siti.aminah@sikembang.com')->first();
+        $ibuDian = User::where('email', 'dian.pertiwi@sikembang.com')->first();
 
-        // Ensure there are ibu users
-        if (empty($ibuIds)) {
-            $this->command->info('No Ibu Hamil users found. Skipping Reminder seeding.');
+        // Ensure users exist
+        if (!$ibuFatimah || !$ibuSiti || !$ibuDian) {
+            $this->command->info('Required Ibu Hamil users not found. Skipping Reminder seeding.');
             return;
         }
 
-        foreach ($ibuIds as $ibuId) {
-            // Create 2 to 5 reminders for each ibu
-            for ($i = 0; $i < rand(2, 5); $i++) {
-                Reminder::create([
-                    'ibu_id' => $ibuId,
-                    'judul' => $faker->sentence(rand(3, 7)),
-                    'deskripsi' => $faker->boolean(70) ? $faker->paragraph(1) : null,
-                    'jenis' => $faker->randomElement(['kontrol', 'vitamin', 'lab', 'lainnya']),
-                    'tanggal' => $faker->dateTimeBetween('now', '+3 months')->format('Y-m-d'),
-                    'jam' => $faker->boolean(70) ? $faker->time('H:i') : null,
-                    'is_berulang' => $faker->boolean(30),
-                    'frekuensi' => $faker->boolean(30) ? $faker->randomElement(['harian', 'mingguan', 'bulanan']) : null,
-                    'is_aktif' => $faker->boolean(),
-                    'is_selesai' => $faker->boolean(30),
-                ]);
-            }
-        }
+        // --- Reminders for Fatimah Azzahra ---
+        Reminder::create([
+            'ibu_id' => $ibuFatimah->id,
+            'judul' => 'Jadwal Kontrol Bidan',
+            'deskripsi' => 'Kontrol rutin kehamilan di Puskesmas Sehat.',
+            'jenis' => 'kontrol',
+            'tanggal' => '2025-03-10', // Consistent with booking
+            'jam' => '10:00:00',
+            'is_berulang' => false,
+            'frekuensi' => null,
+            'is_aktif' => true,
+            'is_selesai' => false,
+        ]);
+        Reminder::create([
+            'ibu_id' => $ibuFatimah->id,
+            'judul' => 'Minum Suplemen Zat Besi',
+            'deskripsi' => 'Ingat untuk minum suplemen zat besi setiap hari.',
+            'jenis' => 'vitamin',
+            'tanggal' => '2025-03-01', // Today
+            'jam' => '08:00:00',
+            'is_berulang' => true,
+            'frekuensi' => 'harian',
+            'is_aktif' => true,
+            'is_selesai' => false,
+        ]);
+
+        // --- Reminders for Siti Aminah ---
+        Reminder::create([
+            'ibu_id' => $ibuSiti->id,
+            'judul' => 'Ambil Hasil Lab',
+            'deskripsi' => 'Hasil lab terakhir sudah bisa diambil di klinik.',
+            'jenis' => 'lab',
+            'tanggal' => '2025-03-05',
+            'jam' => '13:00:00',
+            'is_berulang' => false,
+            'frekuensi' => null,
+            'is_aktif' => true,
+            'is_selesai' => false,
+        ]);
+
+        // --- Reminders for Dian Pertiwi ---
+        Reminder::create([
+            'ibu_id' => $ibuDian->id,
+            'judul' => 'Senam Hamil',
+            'deskripsi' => 'Ikut kelas senam hamil online untuk menjaga kebugaran.',
+            'jenis' => 'lainnya',
+            'tanggal' => '2025-03-03',
+            'jam' => '15:00:00',
+            'is_berulang' => true,
+            'frekuensi' => 'mingguan',
+            'is_aktif' => true,
+            'is_selesai' => false,
+        ]);
     }
 }
