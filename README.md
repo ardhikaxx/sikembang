@@ -1,59 +1,101 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# SIKEMBANG - Sistem Informasi Kesehatan Ibu dan Anak Berbasis Web
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Selamat datang di repositori SIKEMBANG! 👋
 
-## About Laravel
+SIKEMBANG adalah **Sistem Informasi Kesehatan Ibu dan Anak Berbasis Web** yang dirancang untuk membantu dalam pengelolaan data, pelayanan, dan edukasi terkait kesehatan ibu hamil dan anak. Sistem ini mendukung dua peran utama: **Ibu Hamil** dan **Bidan**, memungkinkan interaksi yang efisien dan akses informasi yang relevan.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Fitur Utama
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+*   **Autentikasi Pengguna:** Sistem login dan registrasi dengan peran `ibu_hamil` dan `bidan`.
+*   **Manajemen Profil:** Pengelolaan profil lengkap untuk Ibu Hamil (data kehamilan, riwayat medis) dan Bidan (data praktik, spesialisasi).
+*   **Sistem Konsultasi:** Fitur pesan antara Ibu Hamil dan Bidan untuk konsultasi secara online.
+*   **Sistem Booking:** Penjadwalan janji temu (online/offline) dengan Bidan.
+*   **Edukasi Kesehatan:** Konten edukasi interaktif yang disesuaikan berdasarkan trimester kehamilan dan kategori.
+*   **Catatan Kehamilan:** Ibu hamil dapat mencatat riwayat pemeriksaan dan perkembangan kehamilan mereka.
+*   **Penilaian Risiko:** Fitur untuk Bidan melakukan penilaian risiko kehamilan berdasarkan faktor-faktor tertentu.
+*   **Reminder:** Pengingat otomatis untuk jadwal kontrol, minum vitamin, atau aktivitas penting lainnya bagi Ibu Hamil.
+*   **Laporan:** Bidan dapat melihat laporan dan statistik terkait pelayanan.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🚀 Teknologi yang Digunakan
 
-## Learning Laravel
+*   **Backend:** Laravel (PHP Framework)
+*   **Database:** MySQL
+*   **Frontend:** HTML, CSS, JavaScript (dengan Blade Templating Engine Laravel)
+*   **Asset Bundling:** Vite
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 🛠️ Instalasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Untuk menjalankan proyek ini secara lokal, ikuti langkah-langkah berikut:
 
-## Laravel Sponsors
+1.  **Clone Repositori:**
+    ```bash
+    git clone https://github.com/ardhikaxx/sikembang.git
+    cd sikembang
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2.  **Instal Dependensi Composer:**
+    ```bash
+    composer install
+    ```
 
-### Premium Partners
+3.  **Konfigurasi Environment:**
+    Salin file `.env.example` ke `.env` dan sesuaikan pengaturan database Anda.
+    ```bash
+    cp .env.example .env
+    ```
+    Buka file `.env` dan atur koneksi database (misalnya untuk MySQL):
+    ```
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=sikembang  # Ganti dengan nama database Anda
+    DB_USERNAME=root      # Ganti dengan username database Anda
+    DB_PASSWORD=          # Ganti dengan password database Anda
+    ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4.  **Generate Application Key:**
+    ```bash
+    php artisan key:generate
+    ```
 
-## Contributing
+5.  **Migrasi Database dan Seeder:**
+    Jalankan migrasi database dan seed data awal. Ini akan membuat tabel-tabel yang diperlukan dan mengisi beberapa data contoh (termasuk user Bidan Admin dan Ibu Hamil).
+    ```bash
+    php artisan migrate:fresh --seed
+    ```
+    > **Catatan:** Password untuk `bidan@sikembang.com` dan `ibuhamil@sikembang.com` adalah `password`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6.  **Instal Dependensi NPM & Build Frontend Assets:**
+    ```bash
+    npm install
+    npm run dev # Untuk pengembangan dengan hot-reloading
+    # atau
+    npm run build # Untuk build produksi
+    ```
 
-## Code of Conduct
+7.  **Jalankan Aplikasi:**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi akan berjalan di `http://127.0.0.1:8000`.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 👨‍💻 Penggunaan
 
-## Security Vulnerabilities
+Setelah instalasi, Anda bisa login menggunakan akun berikut:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+*   **Bidan Admin:**
+    *   **Email:** `bidan@sikembang.com`
+    *   **Password:** `password`
+*   **Ibu Hamil:**
+    *   **Email:** `ibuhamil@sikembang.com`
+    *   **Password:** `password`
 
-## License
+Jelajahi fitur-fitur yang tersedia sesuai dengan peran masing-masing!
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](LICENSE.md).
+
+---
+
+Terima kasih telah menggunakan SIKEMBANG! ❤️
