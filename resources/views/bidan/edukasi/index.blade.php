@@ -5,7 +5,7 @@
 @section('main-content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h4>Kelola Edukasi</h4>
-    <a href="{{ route('bidan.edukai.create') }}" class="btn btn-primary-sikembang">
+    <a href="{{ route('bidan.edukasi.create') }}" class="btn btn-primary-sikembang">
         <i class="fa-solid fa-plus me-2"></i>Tambah Konten
     </a>
 </div>
@@ -38,8 +38,8 @@
                             @endif
                         </td>
                         <td>
-                            <a href="{{ route('bidan.edukai.edit', $konten->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
-                            <form action="{{ route('bidan.edukai.destroy', $konten->id) }}" method="POST" class="d-inline">
+                            <a href="{{ route('bidan.edukasi.edit', $konten->id) }}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <form action="{{ route('bidan.edukasi.destroy', $konten->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
