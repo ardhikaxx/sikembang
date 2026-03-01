@@ -74,6 +74,7 @@ class DatabaseSeeder extends Seeder
             KontenEdukasiSeeder::class,
             KonsultasiSeeder::class,
             BookingSeeder::class,
+            CatatanKehamilanSeeder::class,
         ]);
     }
 }
