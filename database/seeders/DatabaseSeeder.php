@@ -77,6 +77,7 @@ class DatabaseSeeder extends Seeder
             CatatanKehamilanSeeder::class,
             PenilaianRisikoSeeder::class,
             ReminderSeeder::class,
+            NotifikasiSeeder::class,
         ]);
     }
 }
