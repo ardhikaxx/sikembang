@@ -136,11 +136,13 @@ class AuthController extends Controller
         
         if ($user->role === 'ibu_hamil') {
             $profil = $user->profilIbuHamil;
-        } else {
+            $layout = 'layouts.ibu';
+        } else { // bidan
             $profil = $user->profilBidan;
+            $layout = 'layouts.bidan';
         }
         
-        return view('auth.edit-profil', compact('user', 'profil'));
+        return view('auth.edit-profil', compact('user', 'profil', 'layout'));
     }
 
     public function updateProfil(Request $request)

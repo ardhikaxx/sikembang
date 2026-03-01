@@ -1,4 +1,4 @@
-@extends('layouts.bidan')
+@extends($layout)
 
 @section('title', 'Edit Profil - SIKEMBANG')
 
