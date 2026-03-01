@@ -107,7 +107,7 @@ class AuthController extends Controller
                 'alamat' => $request->alamat,
                 'riwayat_penyakit' => $request->riwayat_penyakit,
                 'riwayat_alergi' => $request->riwayat_alergi,
-                'kehhasilan_ke' => $request->kehalahan_ke ?? 1,
+                'kehamilan_ke' => $request->kehamilan_ke ?? 1,
             ]);
         } elseif ($request->role === 'bidan') {
             ProfilBidan::create([
@@ -173,7 +173,7 @@ class AuthController extends Controller
                 'riwayat_alergi' => $request->riwayat_alergi,
                 'berat_sebelum' => $request->berat_sebelum,
                 'tinggi_badan' => $request->tinggi_badan,
-                'kehhasilan_ke' => $request->kehalahan_ke,
+                'kehamilan_ke' => $request->kehamilan_ke,
                 'anak_hidup' => $request->anak_hidup,
                 'keguguran' => $request->keguguran,
             ];
