@@ -26,9 +26,13 @@ class IbuHamilSeeder extends Seeder
             $hpht = $faker->dateTimeBetween('-9 months', 'now')->format('Y-m-d');
             $hpl = date('Y-m-d', strtotime($hpht . ' +280 days'));
 
+            $namaLengkap = $faker->name('female');
+            $emailBase = strtolower(str_replace(' ', '.', $namaLengkap));
+            $email = $faker->unique()->safeEmail($emailBase . '@sikembang.com'); // Using sikembang.com as domain
+
             $user = User::create([
-                'nama_lengkap' => $faker->name('female'),
-                'email' => $faker->unique()->safeEmail(),
+                'nama_lengkap' => $namaLengkap,
+                'email' => $email,
                 'password' => Hash::make('password'), // Common password for seeded users
                 'role' => 'ibu_hamil',
                 'no_hp' => $faker->phoneNumber(),
