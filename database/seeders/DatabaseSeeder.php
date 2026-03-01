@@ -68,5 +68,9 @@ class DatabaseSeeder extends Seeder
             'anak_hidup' => 0,
             'keguguran' => 0,
         ]);
+
+        $this->call([
+            IbuHamilSeeder::class,
+        ]);
     }
 }
