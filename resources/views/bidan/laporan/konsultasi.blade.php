@@ -55,7 +55,7 @@
                         </div>
                     </form>
 
-                    <h5>Hasil Rekap Konsultasi Bulan {{ \Carbon\Carbon::create()->month(request('bulan', date('m')))->locale('id')->monthName }} Tahun {{ request('tahun', date('Y')) }}</h5>
+                    <h5>Hasil Rekap Konsultasi Bulan {{ \Carbon\Carbon::create()->month((int)request('bulan', date('m')))->locale('id')->monthName }} Tahun {{ request('tahun', date('Y')) }}</h5>
                     @if ($konsultasis->count() > 0)
                     <div class="table-responsive">
                         <table class="table table-hover">
