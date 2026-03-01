@@ -29,7 +29,7 @@
                     <tr>
                         <td>{{ $booking->tanggal_booking->format('d-m-Y') }}</td>
                         <td>{{ $booking->jam_booking }}</td>
-                        <td>{{ $booking->bidan->nama_latest }}</td>
+                        <td>{{ $booking->bidan->nama_lengkap }}</td>
                         <td>{{ ucfirst($booking->jenis) }}</td>
                         <td>
                             @if($booking->status == 'menunggu')

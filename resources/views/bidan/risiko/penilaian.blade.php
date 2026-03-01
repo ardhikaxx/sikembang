@@ -7,7 +7,7 @@
     <i class="fa-solid fa-arrow-left"></i> Kembali
 </a>
 
-<h4 class="mb-4">Penilaian Risiko - {{ $ibu->nama_latest }}</h4>
+<h4 class="mb-4">Penilaian Risiko - {{ $ibu->nama_lengkap }}</h4>
 
 <div class="card card-sikembang">
     <div class="card-body">

@@ -23,7 +23,7 @@
                     @foreach($konsultasis as $konsultasi)
                     <tr>
                         <td>{{ $konsultasi->judul }}</td>
-                        <td>{{ $konsultasi->ibu->nama_latest }}</td>
+                        <td>{{ $konsultasi->ibu->nama_lengkap }}</td>
                         <td>
                             @if($konsultasi->status == 'aktif')
                             <span class="badge bg-success">Aktif</span>

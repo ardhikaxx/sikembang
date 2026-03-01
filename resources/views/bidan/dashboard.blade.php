@@ -52,7 +52,7 @@
                         <tbody>
                             @foreach($bookingTerbaru as $booking)
                             <tr>
-                                <td>{{ $booking->ibu->nama_latest }}</td>
+                                <td>{{ $booking->ibu->nama_lengkap }}</td>
                                 <td>{{ $booking->tanggal_booking->format('d-m-Y') }}</td>
                                 <td>
                                     @if($booking->status == 'menunggu')
@@ -82,7 +82,7 @@
                 <ul class="list-group">
                     @foreach($ibuRisikoTinggi as $risiko)
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ $risiko->ibu->nama_latest }}
+                        {{ $risiko->ibu->nama_lengkap }}
                         <span class="badge badge-risiko-tinggi">Tinggi</span>
                     </li>
                     @endforeach

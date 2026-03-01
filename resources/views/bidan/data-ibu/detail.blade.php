@@ -14,7 +14,7 @@
                 <h5 class="mb-0">Profil Ibu</h5>
             </div>
             <div class="card-body">
-                <p><strong>Nama:</strong> {{ $ibu->nama_latest }}</p>
+                <p><strong>Nama:</strong> {{ $ibu->nama_lengkap }}</p>
                 <p><strong>Email:</strong> {{ $ibu->email }}</p>
                 <p><strong>No HP:</strong> {{ $ibu->no_hp ?? '-' }}</p>
                 @if($ibu->profilIbuHamil)

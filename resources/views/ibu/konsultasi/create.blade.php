@@ -14,7 +14,7 @@
                 <select class="form-select" id="bidan_id" name="bidan_id" required>
                     <option value="">Pilih Bidan...</option>
                     @foreach($bidans as $bidan)
-                    <option value="{{ $bidan->id }}">{{ $bidan->nama_latest }} - {{ $bidan->profilBidan->instansi ?? '-' }}</option>
+                    <option value="{{ $bidan->id }}">{{ $bidan->nama_lengkap }} - {{ $bidan->profilBidan->instansi ?? '-' }}</option>
                     @endforeach
                 </select>
             </div>

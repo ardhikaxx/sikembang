@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
         <h4>{{ $konsultasi->judul }}</h4>
-        <small class="text-muted">Ibu: {{ $konsultasi->ibu->nama_latest }}</small>
+        <small class="text-muted">Ibu: {{ $konsultasi->ibu->nama_lengkap }}</small>
     </div>
     <div>
         @if($konsultasi->status == 'aktif')
@@ -22,7 +22,7 @@
             <div class="d-flex mb-3 {{ $pesan->pengirim_id == Auth::id() ? 'justify-content-end' : 'justify-content-start' }}">
                 <div class="{{ $pesan->pengirim_id == Auth::id() ? 'chat-bubble-bidan' : 'chat-bubble-ibu' }}">
                     <div class="small text-{{ $pesan->pengirim_id == Auth::id() ? 'mutted' : 'light' }} mb-1">
-                        {{ $pesan->pengirim->nama_latest }}
+                        {{ $pesan->pengirim->nama_lengkap }}
                     </div>
                     <div>{{ $pesan->pesan }}</div>
                     <div class="small text-end mt-1">

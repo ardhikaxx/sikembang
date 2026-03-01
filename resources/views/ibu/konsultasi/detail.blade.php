@@ -21,7 +21,7 @@
             <div class="d-flex mb-3 {{ $pesan->pengirim_id == Auth::id() ? 'justify-content-end' : 'justify-content-start' }}">
                 <div class="{{ $pesan->pengirim_id == Auth::id() ? 'chat-bubble-ibu' : 'chat-bubble-bidan' }}">
                     <div class="small text-{{ $pesan->pengirim_id == Auth::id() ? 'light' : 'mutted' }} mb-1">
-                        {{ $pesan->pengirim->nama_latest }}
+                        {{ $pesan->pengirim->nama_lengkap }}
                     </div>
                     <div>{{ $pesan->pesan }}</div>
                     <div class="small text-end mt-1">

@@ -12,7 +12,7 @@
         <span class="badge badge-primary-sikembang">{{ $konten->kategori->nama ?? '' }}</span>
         <h2 class="mt-3">{{ $konten->judul }}</h2>
         <p class="text-muted">
-            <small>Dilihat {{ $konten->views }} kali | Oleh {{ $konten->bidan->nama_latest }}</small>
+            <small>Dilihat {{ $konten->views }} kali | Oleh {{ $konten->bidan->nama_lengkap }}</small>
         </p>
         <hr>
         <div class="konten">

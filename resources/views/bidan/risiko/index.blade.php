@@ -21,7 +21,7 @@
                 <tbody>
                     @foreach($ibus as $ibu)
                     <tr>
-                        <td>{{ $ibu->nama_latest }}</td>
+                        <td>{{ $ibu->nama_lengkap }}</td>
                         <td>
                             @if($ibu->profilIbuHamil && $ibu->profilIbuHamil->hpht)
                             @php

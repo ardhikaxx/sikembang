@@ -17,8 +17,8 @@
             <div class="d-flex justify-content-between align-items-center">
                 <div>
                     <div class="stat-number">
-                        @if($usiaKehamilia)
-                        {{ $usiaKehamilia['minggu'] }}minggu {{ $usiaKehamilia['hari'] }}hari
+                        @if($usiaKehamilan)
+                        {{ $usiaKehamilan['minggu'] }}minggu {{ $usiaKehamilan['hari'] }}hari
                         @else
                         -
                         @endif
@@ -92,7 +92,7 @@
         <p><strong>Tanggal:</strong> {{ $bookingBerikutnya->tanggal_booking->format('d-m-Y') }}</p>
         <p><strong>Jam:</strong> {{ $bookingBerikutnya->jam_booking }}</p>
         <p><strong>Jenis:</strong> {{ ucfirst($bookingBerikutnya->jenis) }}</p>
-        <p><strong>Bidan:</strong> {{ $bookingBerikutnya->bidan->nama_latest }}</p>
+        <p><strong>Bidan:</strong> {{ $bookingBerikutnya->bidan->nama_lengkap }}</p>
     </div>
 </div>
 @endif

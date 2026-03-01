@@ -23,7 +23,7 @@
                 <tbody>
                     @foreach($bookings as $booking)
                     <tr>
-                        <td>{{ $booking->ibu->nama_latest }}</td>
+                        <td>{{ $booking->ibu->nama_lengkap }}</td>
                         <td>{{ $booking->tanggal_booking->format('d-m-Y') }}</td>
                         <td>{{ $booking->jam_booking }}</td>
                         <td>{{ ucfirst($booking->jenis) }}</td>
