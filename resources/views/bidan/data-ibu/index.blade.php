@@ -23,7 +23,7 @@
                 <tbody>
                     @foreach($ibus as $ibu)
                     <tr>
-                        <td>{{ $ibu->nama_latest }}</td>
+                        <td>{{ $ibu->nama_lengkap }}</td>
                         <td>{{ $ibu->email }}</td>
                         <td>{{ $ibu->profilIbuHamil->hpht ? $ibu->profilIbuHamil->hpht->format('d-m-Y') : '-' }}</td>
                         <td>{{ $ibu->profilIbuHamil->hpl ? $ibu->profilIbuHamil->hpl->format('d-m-Y') : '-' }}</td>
