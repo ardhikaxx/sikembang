@@ -5,7 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\PenilaianRisiko;
-use Faker\Factory as Faker;
+// No Faker needed for hardcoded data
+// use Faker\Factory as Faker;
 
 class PenilaianRisikoSeeder extends Seeder
 {
@@ -14,43 +15,52 @@ class PenilaianRisikoSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
+        // No Faker needed
+        // $faker = Faker::create('id_ID');
 
-        // Get all Ibu users
-        $ibuIds = User::where('role', 'ibu_hamil')->pluck('id')->toArray();
-        // Get all Bidan users
-        $bidanIds = User::where('role', 'bidan')->pluck('id')->toArray();
+        // Get specific Bidan and Ibu Hamil users
+        $bidanAdmin = User::where('email', 'bidan@sikembang.com')->first();
+        $ibuFatimah = User::where('email', 'fatimah.azzahra@sikembang.com')->first();
+        $ibuSiti = User::where('email', 'siti.aminah@sikembang.com')->first();
+        $ibuDian = User::where('email', 'dian.pertiwi@sikembang.com')->first();
 
-        // Ensure there are ibu and bidan users
-        if (empty($ibuIds) || empty($bidanIds)) {
-            $this->command->info('No Ibu Hamil or Bidan users found. Skipping PenilaianRisiko seeding.');
+        // Ensure users exist
+        if (!$bidanAdmin || !$ibuFatimah || !$ibuSiti || !$ibuDian) {
+            $this->command->info('Required Bidan or Ibu Hamil users not found. Skipping PenilaianRisiko seeding.');
             return;
         }
 
-        for ($i = 0; $i < 30; $i++) { // Create 30 assessments
-            $ibuId = $faker->randomElement($ibuIds);
-            $bidanId = $faker->randomElement($bidanIds);
-            $kategoriRisiko = $faker->randomElement(['rendah', 'sedang', 'tinggi']);
-            $skorRisiko = 0;
+        // --- Penilaian Risiko for Fatimah Azzahra (Sedang) ---
+        PenilaianRisiko::create([
+            'ibu_id' => $ibuFatimah->id,
+            'bidan_id' => $bidanAdmin->id,
+            'kategori_risiko' => 'sedang',
+            'skor_risiko' => 7,
+            'faktor_risiko' => json_encode(['Diabetes Gestasional', 'Usia > 35']),
+            'rekomendasi' => 'Rujuk ke dokter spesialis, pantau kadar gula darah secara rutin, anjurkan diet khusus.',
+            'tanggal_penilaian' => '2025-02-15',
+        ]);
 
-            // Simple logic for skor_risiko based on kategori_risiko
-            if ($kategoriRisiko === 'rendah') {
-                $skorRisiko = $faker->numberBetween(0, 5);
-            } elseif ($kategoriRisiko === 'sedang') {
-                $skorRisiko = $faker->numberBetween(6, 10);
-            } else {
-                $skorRisiko = $faker->numberBetween(11, 20);
-            }
+        // --- Penilaian Risiko for Siti Aminah (Rendah) ---
+        PenilaianRisiko::create([
+            'ibu_id' => $ibuSiti->id,
+            'bidan_id' => $bidanAdmin->id,
+            'kategori_risiko' => 'rendah',
+            'skor_risiko' => 3,
+            'faktor_risiko' => json_encode(['Tidak ada riwayat penyakit', 'Usia ideal']),
+            'rekomendasi' => 'Edukasi nutrisi dan gaya hidup sehat, kontrol rutin sesuai jadwal.',
+            'tanggal_penilaian' => '2025-02-20',
+        ]);
 
-            PenilaianRisiko::create([
-                'ibu_id' => $ibuId,
-                'bidan_id' => $bidanId,
-                'kategori_risiko' => $kategoriRisiko,
-                'skor_risiko' => $skorRisiko,
-                'faktor_risiko' => json_encode($faker->words(rand(2, 5), false)), // Random factors as JSON
-                'rekomendasi' => $faker->paragraph(rand(1, 2)),
-                'tanggal_penilaian' => $faker->dateTimeBetween('-1 year', 'now')->format('Y-m-d'),
-            ]);
-        }
+        // --- Penilaian Risiko for Dian Pertiwi (Tinggi) ---
+        PenilaianRisiko::create([
+            'ibu_id' => $ibuDian->id,
+            'bidan_id' => $bidanAdmin->id,
+            'kategori_risiko' => 'tinggi',
+            'skor_risiko' => 12,
+            'faktor_risiko' => json_encode(['Hipertensi Kronis', 'Rhesus Negatif']),
+            'rekomendasi' => 'Manajemen tekanan darah ketat, pemantauan ketat oleh dokter spesialis, edukasi tanda bahaya.',
+            'tanggal_penilaian' => '2025-01-30',
+        ]);
     }
 }
