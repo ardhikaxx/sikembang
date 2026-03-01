@@ -75,12 +75,12 @@ Route::prefix('bidan')->middleware(['auth'])->group(function () {
     Route::post('/booking/{id}/jadwal-ulang', [BidanBookingController::class, 'jadwalUlang'])->name('bidan.booking.jadwal-ulang');
     Route::get('/booking/{id}/selesai', [BidanBookingController::class, 'selesai'])->name('bidan.booking.selesai');
     
-    Route::get('/edukai', [BidanEdukasiController::class, 'index'])->name('bidan.edukai.index');
-    Route::get('/edukai/create', [BidanEdukasiController::class, 'create'])->name('bidan.edukai.create');
-    Route::post('/edukai', [BidanEdukasiController::class, 'store'])->name('bidan.edukai.store');
-    Route::get('/edukai/{id}/edit', [BidanEdukasiController::class, 'edit'])->name('bidan.edukai.edit');
-    Route::put('/edukai/{id}', [BidanEdukasiController::class, 'update'])->name('bidan.edukai.update');
-    Route::delete('/edukai/{id}', [BidanEdukasiController::class, 'destroy'])->name('bidan.edukai.destroy');
+    Route::get('/edukasi', [BidanEdukasiController::class, 'index'])->name('bidan.edukasi.index');
+    Route::get('/edukasi/create', [BidanEdukasiController::class, 'create'])->name('bidan.edukasi.create');
+    Route::post('/edukasi', [BidanEdukasiController::class, 'store'])->name('bidan.edukasi.store');
+    Route::get('/edukasi/{id}/edit', [BidanEdukasiController::class, 'edit'])->name('bidan.edukasi.edit');
+    Route::put('/edukasi/{id}', [BidanEdukasiController::class, 'update'])->name('bidan.edukasi.update');
+    Route::delete('/edukasi/{id}', [BidanEdukasiController::class, 'destroy'])->name('bidan.edukasi.destroy');
     
     Route::get('/risiko', [BidanRisikoController::class, 'index'])->name('bidan.risiko.index');
     Route::get('/risiko/{id}', [BidanRisikoController::class, 'penilaian'])->name('bidan.risiko.penilaian');
