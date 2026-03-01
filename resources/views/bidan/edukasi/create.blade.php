@@ -7,7 +7,7 @@
 
 <div class="card card-sikembang">
     <div class="card-body">
-        <form method="POST" action="{{ route('bidan.edukai.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('bidan.edukasi.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
                 <label for="kategori_id" class="form-label">Kategori</label>
@@ -50,7 +50,7 @@
                 <label class="form-check-label" for="is_published">Publish sekarang</label>
             </div>
             <button type="submit" class="btn btn-primary-sikembang">Simpan</button>
-            <a href="{{ route('bidan.edukai.index') }}" class="btn btn-secondary">Batal</a>
+            <a href="{{ route('bidan.edukasi.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>
 </div>

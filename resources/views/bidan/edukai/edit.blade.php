@@ -7,7 +7,7 @@
 
 <div class="card card-sikembang">
     <div class="card-body">
-        <form method="POST" action="{{ route('bidan.edukai.update', $konten->id) }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('bidan.edukasi.update', $konten->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -54,7 +54,7 @@
                 <label class="form-check-label" for="is_published">Publish</label>
             </div>
             <button type="submit" class="btn btn-primary-sikembang">Update</button>
-            <a href="{{ route('bidan.edukai.index') }}" class="btn btn-secondary">Batal</a>
+            <a href="{{ route('bidan.edukasi.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>
 </div>
