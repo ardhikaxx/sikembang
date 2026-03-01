@@ -6,7 +6,8 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Booking;
 use App\Models\JadwalUlangBooking;
-use Faker\Factory as Faker;
+// No Faker needed for hardcoded data
+// use Faker\Factory as Faker;
 
 class BookingSeeder extends Seeder
 {
@@ -15,53 +16,77 @@ class BookingSeeder extends Seeder
      */
     public function run(): void
     {
-        $faker = Faker::create('id_ID');
+        // No Faker needed
+        // $faker = Faker::create('id_ID');
 
-        // Get all Ibu users
-        $ibuIds = User::where('role', 'ibu_hamil')->pluck('id')->toArray();
-        // Get all Bidan users
-        $bidanIds = User::where('role', 'bidan')->pluck('id')->toArray();
+        // Get specific Bidan and Ibu Hamil users
+        $bidanAdmin = User::where('email', 'bidan@sikembang.com')->first();
+        $ibuFatimah = User::where('email', 'fatimah.azzahra@sikembang.com')->first();
+        $ibuSiti = User::where('email', 'siti.aminah@sikembang.com')->first();
 
-        // Ensure there are ibu and bidan users
-        if (empty($ibuIds) || empty($bidanIds)) {
-            $this->command->info('No Ibu Hamil or Bidan users found. Skipping Booking seeding.');
+        // Ensure users exist
+        if (!$bidanAdmin || !$ibuFatimah || !$ibuSiti) {
+            $this->command->info('Required Bidan or Ibu Hamil users not found. Skipping Booking seeding.');
             return;
         }
 
-        for ($i = 0; $i < 30; $i++) { // Create 30 bookings
-            $ibuId = $faker->randomElement($ibuIds);
-            $bidanId = $faker->randomElement($bidanIds);
+        // --- Booking 1: Menunggu, Ibu Fatimah dengan Bidan Admin ---
+        Booking::create([
+            'ibu_id' => $ibuFatimah->id,
+            'bidan_id' => $bidanAdmin->id,
+            'tanggal_booking' => '2025-03-10',
+            'jam_booking' => '10:00:00',
+            'jenis' => 'offline',
+            'keluhan' => 'Konsultasi rutin kehamilan trimester kedua.',
+            'status' => 'menunggu',
+            'catatan_bidan' => null,
+            'alasan_tolak' => null,
+        ]);
 
-            $tanggalBooking = $faker->dateTimeBetween('-1 month', '+3 months')->format('Y-m-d');
-            $jamBooking = $faker->time('H:i');
+        // --- Booking 2: Diterima, Ibu Siti dengan Bidan Admin ---
+        Booking::create([
+            'ibu_id' => $ibuSiti->id,
+            'bidan_id' => $bidanAdmin->id,
+            'tanggal_booking' => '2025-03-15',
+            'jam_booking' => '14:30:00',
+            'jenis' => 'online',
+            'keluhan' => 'Diskusi hasil pemeriksaan lab terbaru.',
+            'status' => 'diterima',
+            'catatan_bidan' => 'Siapkan hasil lab dan pertanyaan.',
+            'alasan_tolak' => null,
+        ]);
 
-            $booking = Booking::create([
-                'ibu_id' => $ibuId,
-                'bidan_id' => $bidanId,
-                'tanggal_booking' => $tanggalBooking,
-                'jam_booking' => $jamBooking,
-                'jenis' => $faker->randomElement(['online', 'offline']),
-                'keluhan' => $faker->paragraph(rand(1, 3)),
-                'status' => $faker->randomElement(['menunggu', 'diterima', 'ditolak', 'selesai', 'dijadwalkan_ulang']),
-                'catatan_bidan' => $faker->boolean(50) ? $faker->sentence() : null,
-                'alasan_tolak' => null, // Will be set if status is 'ditolak'
-            ]);
+        // --- Booking 3: Dijadwalkan Ulang, Ibu Fatimah dengan Bidan Admin ---
+        $bookingRescheduled = Booking::create([
+            'ibu_id' => $ibuFatimah->id,
+            'bidan_id' => $bidanAdmin->id,
+            'tanggal_booking' => '2025-03-05', // Original date
+            'jam_booking' => '09:00:00', // Original time
+            'jenis' => 'offline',
+            'keluhan' => 'Pemeriksaan rutin, namun ada keperluan mendadak.',
+            'status' => 'dijadwalkan_ulang',
+            'catatan_bidan' => null,
+            'alasan_tolak' => null,
+        ]);
 
-            // If status is 'ditolak', set alasan_tolak
-            if ($booking->status === 'ditolak') {
-                $booking->update(['alasan_tolak' => $faker->sentence()]);
-            }
+        JadwalUlangBooking::create([
+            'booking_id' => $bookingRescheduled->id,
+            'tanggal_baru' => '2025-03-12',
+            'jam_baru' => '11:00:00',
+            'alasan' => 'Bidan ada acara mendesak, diganti tanggal 12 Maret jam 11 pagi.',
+        ]);
 
-            // 20% chance to reschedule the booking
-            if ($booking->status === 'dijadwalkan_ulang' || $faker->boolean(20)) {
-                JadwalUlangBooking::create([
-                    'booking_id' => $booking->id,
-                    'tanggal_baru' => $faker->dateTimeBetween($tanggalBooking, '+4 months')->format('Y-m-d'),
-                    'jam_baru' => $faker->time('H:i'),
-                    'alasan' => $faker->sentence(),
-                ]);
-                $booking->update(['status' => 'dijadwalkan_ulang']); // Ensure status matches if rescheduled
-            }
-        }
+        // --- Booking 4: Ditolak, Ibu Siti dengan Bidan Admin ---
+        Booking::create([
+            'ibu_id' => $ibuSiti->id,
+            'bidan_id' => $bidanAdmin->id,
+            'tanggal_booking' => '2025-03-20',
+            'jam_booking' => '16:00:00',
+            'jenis' => 'online',
+            'keluhan' => 'Konsultasi tentang pusing yang sering muncul.',
+            'status' => 'ditolak',
+            'catatan_bidan' => null,
+            'alasan_tolak' => 'Jadwal bidan penuh, disarankan booking ulang di lain hari.',
+        ]);
     }
 }
