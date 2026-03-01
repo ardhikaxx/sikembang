@@ -153,7 +153,7 @@ return new class extends Migration
             $table->tinyInteger('usia_kehamilan')->nullable();
             $table->decimal('berat_badan', 5, 2)->nullable();
             $table->string('tekanan_darah', 20)->nullable();
-            $table->tinyInteger('denyut_janin')->nullable();
+            $table->unsignedTinyInteger('denyut_janin')->nullable();
             $table->decimal('tinggi_fundus', 5, 2)->nullable();
             $table->decimal('kadar_hb', 4, 2)->nullable();
             $table->text('keluhan')->nullable();
