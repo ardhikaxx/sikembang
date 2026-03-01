@@ -58,7 +58,7 @@ class LaporanController extends Controller
         return view('bidan.laporan.booking', compact('statusBooking'));
     }
 
-    public function distribusiUsiaKehamilanan()
+    public function distribusiUsiaKehamilan()
     {
         $ibus = User::where('role', 'ibu_hamil')
             ->where('is_aktif', true)
