@@ -53,7 +53,7 @@
                                 </div>
                             </td>
                             <td>
-                                <span class="badge bg-primary bg-opacity-10 text-primary">
+                                <span class="badge bg-primary">
                                     {{ ucfirst($booking->jenis) }}
                                 </span>
                             </td>
