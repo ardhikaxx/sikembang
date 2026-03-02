@@ -98,5 +98,7 @@ Route::prefix('bidan')->middleware(['auth'])->group(function () {
     Route::get('/laporan/konsultasi', [BidanLaporanController::class, 'rekapKonsultasi'])->name('bidan.laporan.konsultasi');
     Route::get('/laporan/risiko', [BidanLaporanController::class, 'dataIbuRisiko'])->name('bidan.laporan.risiko');
     Route::get('/laporan/booking', [BidanLaporanController::class, 'bookingStatus'])->name('bidan.laporan.booking');
-    Route::get('/laporan/distribusi', [BidanLaporanController::class, 'distribusiUsiaKehamilan'])->name('bidan.laporan.distribusi');
+    Route::get('/laporan/distribusi', [BidanLaporanController::class, 'distribusiUsiaKehamilahan'])->name('bidan.laporan.distribusi');
+    Route::get('/laporan/statistik-ibu', [BidanLaporanController::class, 'statistikIbuHamil'])->name('bidan.laporan.statistik-ibu');
+    Route::get('/laporan/konsultasi-bidan', [BidanLaporanController::class, 'konsultasiPerBidan'])->name('bidan.laporan.konsultasi-bidan');
 });

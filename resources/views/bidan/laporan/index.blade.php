@@ -16,11 +16,11 @@
             <div class="card card-sikembang h-100">
                 <div class="card-body text-center py-4">
                     <div class="icon-box-large bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
-                        <i class="fa-solid fa-comments fa-2x"></i>
+                        <i class="fa-solid fa-chart-line fa-2x"></i>
                     </div>
-                    <h5 class="fw-bold">Rekap Konsultasi</h5>
-                    <p class="text-muted mb-4">Lihat rekap konsultasi per bulan</p>
-                    <a href="{{ route('bidan.laporan.konsultasi') }}" class="btn btn-primary-sikembang">
+                    <h5 class="fw-bold">Statistik Ibu Hamil</h5>
+                    <p class="text-muted mb-4">Grafik ibu hamil per bulan</p>
+                    <a href="{{ route('bidan.laporan.statistik-ibu') }}" class="btn btn-primary-sikembang">
                         <i class="fa-solid fa-chart-line me-2"></i>Lihat Laporan
                     </a>
                 </div>
@@ -36,6 +36,20 @@
                     <p class="text-muted mb-4">Pie chart distribusi risiko</p>
                     <a href="{{ route('bidan.laporan.risiko') }}" class="btn btn-primary-sikembang">
                         <i class="fa-solid fa-chart-pie me-2"></i>Lihat Laporan
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card card-sikembang h-100">
+                <div class="card-body text-center py-4">
+                    <div class="icon-box-large bg-success bg-opacity-10 text-success rounded-circle mx-auto mb-4">
+                        <i class="fa-solid fa-user-doctor fa-2x"></i>
+                    </div>
+                    <h5 class="fw-bold">Konsultasi per Bidan</h5>
+                    <p class="text-muted mb-4">Grafik konsultasi setiap bidan</p>
+                    <a href="{{ route('bidan.laporan.konsultasi-bidan') }}" class="btn btn-primary-sikembang">
+                        <i class="fa-solid fa-chart-bar me-2"></i>Lihat Laporan
                     </a>
                 </div>
             </div>
@@ -64,6 +78,20 @@
                     <p class="text-muted mb-4">Grafik distribusi trimester</p>
                     <a href="{{ route('bidan.laporan.distribusi') }}" class="btn btn-primary-sikembang">
                         <i class="fa-solid fa-chart-column me-2"></i>Lihat Laporan
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card card-sikembang h-100">
+                <div class="card-body text-center py-4">
+                    <div class="icon-box-large bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
+                        <i class="fa-solid fa-comments fa-2x"></i>
+                    </div>
+                    <h5 class="fw-bold">Rekap Konsultasi</h5>
+                    <p class="text-muted mb-4">Lihat rekap konsultasi per bulan</p>
+                    <a href="{{ route('bidan.laporan.konsultasi') }}" class="btn btn-primary-sikembang">
+                        <i class="fa-solid fa-chart-line me-2"></i>Lihat Laporan
                     </a>
                 </div>
             </div>

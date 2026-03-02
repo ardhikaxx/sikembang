@@ -90,4 +90,39 @@ class LaporanController extends Controller
 
         return view('bidan.laporan.distribusi', compact('distribusi'));
     }
+
+    public function statistikIbuHamil()
+    {
+        $tahun = date('Y');
+        
+        $bulanLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        $dataIbu = [];
+        
+        for ($i = 1; $i <= 12; $i++) {
+            $count = User::where('role', 'ibu_hamil')
+                ->whereYear('created_at', $tahun)
+                ->whereMonth('created_at', $i)
+                ->count();
+            $dataIbu[] = $count;
+        }
+        
+        $totalIbu = User::where('role', 'ibu_hamil')->count();
+        
+        return view('bidan.laporan.statistik-ibu', compact('bulanLabels', 'dataIbu', 'tahun', 'totalIbu'));
+    }
+
+    public function konsultasiPerBidan()
+    {
+        $bidans = User::where('role', 'bidan')->with('konsultasi')->get();
+        
+        $labels = [];
+        $data = [];
+        
+        foreach ($bidans as $bidan) {
+            $labels[] = $bidan->nama_lengkap;
+            $data[] = $bidan->konsultasi()->count();
+        }
+        
+        return view('bidan.laporan.konsultasi-bidan', compact('labels', 'data'));
+    }
 }
