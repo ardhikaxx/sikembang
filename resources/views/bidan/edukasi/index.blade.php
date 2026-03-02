@@ -42,7 +42,7 @@
                             <form action="{{ route('bidan.edukasi.destroy', $konten->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger btn-delete">Hapus</button>
                             </form>
                         </td>
                     </tr>

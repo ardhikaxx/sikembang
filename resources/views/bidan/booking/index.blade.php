@@ -73,9 +73,9 @@
                                 <a href="{{ route('bidan.booking.terima', $booking->id) }}" class="btn btn-sm btn-success">
                                     <i class="fa-solid fa-check me-1"></i>Terima
                                 </a>
-                                <button class="btn btn-sm btn-danger" onclick="showTolakModal({{ $booking->id }})">
+                                <a href="{{ route('bidan.booking.tolak', $booking->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Apakah Anda yakin ingin menolak booking ini?');">
                                     <i class="fa-solid fa-xmark me-1"></i>Tolak
-                                </button>
+                                </a>
                                 @endif
                                 @if($booking->status == 'diterima')
                                 <a href="{{ route('bidan.booking.selesai', $booking->id) }}" class="btn btn-sm btn-info">

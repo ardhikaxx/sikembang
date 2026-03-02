@@ -71,7 +71,8 @@ Route::prefix('bidan')->middleware(['auth'])->group(function () {
     
     Route::get('/booking', [BidanBookingController::class, 'index'])->name('bidan.booking.index');
     Route::get('/booking/{id}/terima', [BidanBookingController::class, 'terima'])->name('bidan.booking.terima');
-    Route::post('/booking/{id}/tolak', [BidanBookingController::class, 'tolak'])->name('bidan.booking.tolak');
+    Route::get('/booking/{id}/tolak', [BidanBookingController::class, 'tolakSimple'])->name('bidan.booking.tolak');
+    Route::post('/booking/{id}/tolak', [BidanBookingController::class, 'tolak'])->name('bidan.booking.tolak.post');
     Route::post('/booking/{id}/jadwal-ulang', [BidanBookingController::class, 'jadwalUlang'])->name('bidan.booking.jadwal-ulang');
     Route::get('/booking/{id}/selesai', [BidanBookingController::class, 'selesai'])->name('bidan.booking.selesai');
     

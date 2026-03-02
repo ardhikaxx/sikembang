@@ -104,7 +104,7 @@ $user = Auth::user();
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link logout-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            <a class="nav-link logout-link" href="{{ route('logout') }}">
                                 <span class="nav-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
                                 <span class="nav-text">Logout</span>
                             </a>

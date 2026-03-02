@@ -46,6 +46,28 @@ class BookingController extends Controller
         return redirect()->back()->with('success', 'Booking diterima!');
     }
 
+    public function tolakSimple($id)
+    {
+        $user = Auth::user();
+        $booking = Booking::where('id', $id)
+            ->where('bidan_id', $user->id)
+            ->firstOrFail();
+
+        $booking->update([
+            'status' => 'ditolak',
+            'alasan_tolak' => 'Ditolak oleh bidan',
+        ]);
+
+        Notifikasi::create([
+            'user_id' => $booking->ibu_id,
+            'judul' => 'Booking Ditolak',
+            'pesan' => $booking->ibu->nama_lengkap . ', mohon maaf booking Anda ditolak.',
+            'tipe' => 'booking',
+        ]);
+
+        return redirect()->back()->with('success', 'Booking ditolak!');
+    }
+
     public function tolak(Request $request, $id)
     {
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [

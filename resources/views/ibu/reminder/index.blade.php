@@ -38,7 +38,7 @@
                 @if(!$reminder->is_selesai)
                 <div class="mt-2">
                     <a href="{{ route('ibu.reminder.complete', $reminder->id) }}" class="btn btn-sm btn-success">Tandai Selesai</a>
-                    <a href="{{ route('ibu.reminder.destroy', $reminder->id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Yakin hapus?')">Hapus</a>
+                    <a href="{{ route('ibu.reminder.destroy', $reminder->id) }}" class="btn btn-sm btn-danger btn-delete">Hapus</a>
                 </div>
                 @endif
             </div>

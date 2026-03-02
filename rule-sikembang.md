@@ -12,7 +12,6 @@
 | **Role Pengguna** | Ibu Hamil & Bidan |
 | **Tech Stack** | PHP Native / Laravel, MySQL, Bootstrap 5, Font Awesome, SweetAlert2 |
 | **Warna Utama** | `#EC1E88` (Pink Magenta) |
-| **Warna Teks di atas Primary** | `#FFFFFF` (Putih) |
 
 ---
 

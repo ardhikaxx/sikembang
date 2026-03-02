@@ -1987,6 +1987,63 @@
                     dom: '<"row"<"col-auto"l><"col"f>>t<"row"<"col-auto"p>>'
                 });
             });
+
+            // SweetAlert for success messages
+            @if(session('success'))
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: '{{ session('success') }}',
+                timer: 3000,
+                showConfirmButton: false,
+                toast: true,
+                position: 'top-end'
+            });
+            @endif
+
+            // Confirm delete with SweetAlert
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('btn-delete') || e.target.closest('.btn-delete')) {
+                    e.preventDefault();
+                    let form = e.target.closest('form');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Hapus Data?',
+                        text: 'Data yang dihapus tidak dapat dikembalikan!',
+                        showCancelButton: true,
+                        confirmButtonColor: '#EC1E88',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Ya, Hapus!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit();
+                        }
+                    });
+                }
+            });
+
+            // Confirm logout with SweetAlert
+            document.addEventListener('click', function(e) {
+                if (e.target.classList.contains('logout-link') || e.target.closest('.logout-link')) {
+                    e.preventDefault();
+                    let href = e.target.closest('.logout-link').getAttribute('href');
+                    Swal.fire({
+                        icon: 'question',
+                        title: 'Logout?',
+                        text: 'Apakah Anda yakin ingin keluar?',
+                        showCancelButton: true,
+                        confirmButtonColor: '#EC1E88',
+                        cancelButtonColor: '#6c757d',
+                        confirmButtonText: 'Ya, Logout!',
+                        cancelButtonText: 'Batal'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = href;
+                        }
+                    });
+                }
+            });
         });
     </script>
 </head>
