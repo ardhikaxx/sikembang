@@ -585,15 +585,15 @@
         .empty-state .btn {
             position: relative;
             z-index: 1;
-            padding: 10px 24px;
+            padding: 8px 18px;
             font-weight: 600;
-            font-size: 0.875rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(236, 30, 136, 0.3);
+            font-size: 0.8rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(236, 30, 136, 0.25);
             transition: all 0.3s ease;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .empty-state .btn:hover {
