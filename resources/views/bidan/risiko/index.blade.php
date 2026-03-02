@@ -74,7 +74,7 @@
             </div>
             @else
             <div class="empty-state">
-                <i class="fa-solid fa-users"></i>
+                <i class="fa-solid fa-user-xmark"></i>
                 <h5>Belum Ada Ibu Hamil</h5>
                 <p class="text-muted">Belum ada ibu hamil yang terdaftar</p>
             </div>

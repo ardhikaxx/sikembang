@@ -76,7 +76,7 @@
             </div>
             @else
             <div class="empty-state">
-                <i class="fa-solid fa-comments"></i>
+                <i class="fa-solid fa-comments-medical"></i>
                 <h5>Belum Ada Konsultasi</h5>
                 <p class="text-muted">Silakan mulai konsultasi baru dengan bidan</p>
                 <a href="{{ route('ibu.konsultasi.create') }}" class="btn btn-primary-sikembang">

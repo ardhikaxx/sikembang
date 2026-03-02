@@ -78,7 +78,7 @@
             </div>
             @else
             <div class="empty-state">
-                <i class="fa-solid fa-calendar-check"></i>
+                <i class="fa-solid fa-calendar-plus"></i>
                 <h5>Belum Ada Booking</h5>
                 <p class="text-muted">Silakan buat booking baru untuk berkonsultasi dengan bidan</p>
                 <a href="{{ route('ibu.booking.create') }}" class="btn btn-primary-sikembang">

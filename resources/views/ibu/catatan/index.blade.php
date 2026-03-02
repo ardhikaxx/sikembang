@@ -67,7 +67,7 @@
             </div>
             @else
             <div class="empty-state">
-                <i class="fa-solid fa-notebook"></i>
+                <i class="fa-solid fa-file-circle-plus"></i>
                 <h5>Belum Ada Catatan</h5>
                 <p class="text-muted">Catatan kesehatan kehamilan Anda akan muncul di sini</p>
                 <a href="{{ route('ibu.catatan.create') }}" class="btn btn-primary-sikembang">

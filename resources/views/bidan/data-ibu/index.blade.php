@@ -65,7 +65,7 @@
             </div>
             @else
             <div class="empty-state">
-                <i class="fa-solid fa-users"></i>
+                <i class="fa-solid fa-users-viewfinder"></i>
                 <h5>Belum Ada Ibu Hamil</h5>
                 <p class="text-muted">Belum ada ibu hamil yang terdaftar dalam sistem</p>
             </div>

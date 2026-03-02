@@ -71,7 +71,7 @@
             </div>
             @else
             <div class="empty-state">
-                <i class="fa-solid fa-comments"></i>
+                <i class="fa-solid fa-comments-slash"></i>
                 <h5>Belum Ada Konsultasi</h5>
                 <p class="text-muted">Belum ada konsultasi dari ibu hamil</p>
             </div>

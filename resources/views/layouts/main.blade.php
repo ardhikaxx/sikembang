@@ -521,17 +521,60 @@
             text-align: center;
             padding: 60px 20px;
             color: var(--text-muted);
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce4f3 100%);
+            border-radius: 16px;
+            margin: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .empty-state::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(236, 30, 136, 0.05) 0%, transparent 70%);
+            animation: emptyPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes emptyPulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
         }
 
         .empty-state i {
-            font-size: 4rem;
-            color: #e5e7eb;
+            font-size: 5rem;
+            color: var(--primary-light);
             margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            opacity: 0.6;
         }
 
         .empty-state h5 {
             color: var(--text-dark);
             margin-bottom: 8px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .empty-state p {
+            color: #6b7280;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 1;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .empty-state .btn {
+            position: relative;
+            z-index: 1;
+            margin-top: 20px;
         }
 
         .btn-action {

@@ -90,7 +90,7 @@
             </div>
             @else
             <div class="empty-state">
-                <i class="fa-solid fa-calendar-check"></i>
+                <i class="fa-solid fa-calendar-xmark"></i>
                 <h5>Belum Ada Booking</h5>
                 <p class="text-muted">Belum ada booking jadwal konsultasi</p>
             </div>
