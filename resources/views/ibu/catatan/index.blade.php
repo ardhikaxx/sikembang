@@ -18,7 +18,7 @@
         <div class="card-body p-0">
             @if($catatans->count() > 0)
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0 table-datatable" id="table-catatan">
                     <thead>
                         <tr>
                             <th>Tanggal</th>
@@ -65,11 +65,6 @@
                     </tbody>
                 </table>
             </div>
-            @if(method_exists($catatans, 'hasPages') && $catatans->hasPages())
-            <div class="card-body border-top">
-                {{ $catatans->links() }}
-            </div>
-            @endif
             @else
             <div class="empty-state">
                 <i class="fa-solid fa-notebook"></i>

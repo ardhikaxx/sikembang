@@ -15,7 +15,7 @@
         <div class="card-body p-0">
             @if($konsultasis->count() > 0)
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0 table-datatable" id="table-konsultasi">
                     <thead>
                         <tr>
                             <th>Judul</th>
@@ -69,11 +69,6 @@
                     </tbody>
                 </table>
             </div>
-            @if(method_exists($konsultasis, 'hasPages') && $konsultasis->hasPages())
-            <div class="card-body border-top">
-                {{ $konsultasis->links() }}
-            </div>
-            @endif
             @else
             <div class="empty-state">
                 <i class="fa-solid fa-comments"></i>

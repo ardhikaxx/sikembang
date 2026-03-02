@@ -15,7 +15,7 @@
         <div class="card-body p-0">
             @if($bookings->count() > 0)
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0 table-datatable" id="table-booking">
                     <thead>
                         <tr>
                             <th>Ibu</th>
@@ -88,11 +88,6 @@
                     </tbody>
                 </table>
             </div>
-            @if(method_exists($bookings, 'hasPages') && $bookings->hasPages())
-            <div class="card-body border-top">
-                {{ $bookings->links() }}
-            </div>
-            @endif
             @else
             <div class="empty-state">
                 <i class="fa-solid fa-calendar-check"></i>

@@ -15,7 +15,7 @@
         <div class="card-body p-0">
             @if($ibus->count() > 0)
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0 table-datatable" id="table-risiko">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -72,11 +72,6 @@
                     </tbody>
                 </table>
             </div>
-            @if(method_exists($ibus, 'hasPages') && $ibus->hasPages())
-            <div class="card-body border-top">
-                {{ $ibus->links() }}
-            </div>
-            @endif
             @else
             <div class="empty-state">
                 <i class="fa-solid fa-users"></i>

@@ -14,7 +14,7 @@
     <div class="card-body">
         @if($kontens->count() > 0)
         <div class="table-responsive">
-            <table class="table table-hover">
+            <table class="table table-hover table-datatable" id="table-edukasi">
                 <thead>
                     <tr>
                         <th>Judul</th>

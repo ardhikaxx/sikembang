@@ -18,7 +18,7 @@
         <div class="card-body p-0">
             @if($bookings->count() > 0)
             <div class="table-responsive">
-                <table class="table table-hover mb-0">
+                <table class="table table-hover mb-0 table-datatable" id="table-booking">
                     <thead>
                         <tr>
                             <th>Tanggal</th>
