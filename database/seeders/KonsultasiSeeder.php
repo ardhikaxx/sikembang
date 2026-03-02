@@ -6,109 +6,139 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Konsultasi;
 use App\Models\PesanKonsultasi;
-use App\Models\LampiranKonsultasi;
-// No Faker needed for hardcoded data
-// use Faker\Factory as Faker;
 
 class KonsultasiSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // No Faker needed
-        // $faker = Faker::create('id_ID');
-
-        // Get specific Bidan and Ibu Hamil users
         $bidanAdmin = User::where('email', 'bidan@sikembang.com')->first();
-        $ibuFatimah = User::where('email', 'fatimah.azzahra@sikembang.com')->first();
-        $ibuSiti = User::where('email', 'siti.aminah@sikembang.com')->first();
+        $ibuHamils = User::where('role', 'ibu_hamil')->take(40)->get();
 
-        // Ensure users exist
-        if (!$bidanAdmin || !$ibuFatimah || !$ibuSiti) {
-            $this->command->info('Required Bidan or Ibu Hamil users not found. Skipping Konsultasi seeding.');
+        if (!$bidanAdmin) {
+            $this->command->info('Bidan not found. Skipping Konsultasi seeding.');
             return;
         }
 
-        // --- Konsultasi 1: Aktif, Ibu Fatimah dengan Bidan Admin ---
-        $konsultasi1 = Konsultasi::create([
-            'ibu_id' => $ibuFatimah->id,
-            'bidan_id' => $bidanAdmin->id,
-            'judul' => 'Perkembangan Janin Trimester 1',
-            'status' => 'aktif',
-            'is_read_bidan' => false,
-            'is_read_ibu' => true,
-        ]);
+        $judulKonsultasi = [
+            'Perkembangan Janin',
+            'Nutrisi Kehamilan',
+            'Keluhan Mual dan Muntah',
+            'Nyeri Punggung',
+            'Pusing dan Lemah',
+            'Hasil Pemeriksaan USG',
+            'Pergerakan Janin',
+            'Persiapan Menyusui',
+            'Tanda Bahaya Kehamilan',
+            'Tips Tidur Nyaman',
+            'Aktivitas Fisik Saat Hamil',
+            'Kebutuhan Vitamin',
+            'Mood Swing',
+            'Keputihan Saat Hamil',
+            'Pembengkakan Kaki',
+        ];
 
-        $pesan1_1 = PesanKonsultasi::create([
-            'konsultasi_id' => $konsultasi1->id,
-            'pengirim_id' => $ibuFatimah->id,
-            'pesan' => 'Halo Bidan, saya Fatimah. Mau tanya, apakah normal jika sering merasa mual di minggu ke-8 kehamilan?',
-            'is_read' => true,
-        ]);
+        $pesanIbu = [
+            'Halo Bidan, saya ingin berkonsultasi tentang kondisi kehamilan saya.',
+            'Bidan, apakah normal merasa mual terus-terusan di usia kehamilan ini?',
+            'Saya sering merasa pusing dan lemas, apakah perlu khawatir?',
+            'Hasil USG saya sudah keluar, mohon direview Bidan.',
+            'Bidan, apakah boleh melakukan olahraga saat hamil?',
+            'Saya mengalami kram kaki di malam hari, bagaimana mengatasinya?',
+            'Apakah normal jika belum merasakan gerakan janinn saya?',
+            'Bidan, makanan apa saja yang harus dihindari saat hamil?',
+            'Saya sering susah tidur akhir-akhir ini, ada tips tidur yang baik?',
+            'Apakah vitamin tambahan diperlukan selain dari makanan?',
+        ];
 
-        $pesan1_2 = PesanKonsultasi::create([
-            'konsultasi_id' => $konsultasi1->id,
-            'pengirim_id' => $bidanAdmin->id,
-            'pesan' => 'Halo Ibu Fatimah, mual di trimester pertama sangat umum terjadi. Pastikan Anda tetap makan sedikit tapi sering, hindari makanan berbau menyengat. Jika mual muntah berlebihan, segera periksa ya.',
-            'is_read' => false,
-        ]);
+        $pesanBidan = [
+            'Halo Ibu, terima kasih sudah berkonsultasi. Kondisi yang Ibu alami masih dalam batas normal. Tetap menjaga pola makan dan istirahat yang cukup ya.',
+            'Ibu, mual dan muntah di trimester pertama memang umum terjadi. Pastikan makan sedikit tapi sering, dan hindari makanan berbau menyengat.',
+            'Ibu, pusing dan lemas bisa disebabkan oleh anemia atau tekanan darah rendah. Sebaiknya periksa hemoglobin dan tekanan darah ya.',
+            'Saya sudah review hasil USG Ibu, alhamdullilah everything looks normal. Janin berkembang dengan baik.',
+            'Ibu boleh olahraga ringan seperti jalan kaki atau yoga hamil. Hindari olahraga yang berisiko jatuh atau terlalu berat.',
+            'Kram kaki biasa terjadi karena kekurangan magnesium/kalsium. Perbanyak minum susu dan makan makanan bergizi.',
+            'Gerakan janin umumnya mulai terasa di usia kehamilan 18-20 minggu. Jangan khawatir ya Ibu, setiap orang berbeda.',
+            'Ibu sebaiknya hindari makanan mentah, seafood tinggi merkuri, makanan pedas berlebihan, dan beverages berkafein.',
+            'Coba gunakan bantal hamil untuk menyangga tubuh, hindari tidur telentang, dan jaga kamar tetap sejuk.',
+            'Vitamin prenatal sangat penting ya Ibu, konsumsi sesuai anjuran ditambah makanan bergizi seimbang.',
+        ];
 
-        // --- Konsultasi 2: Selesai, Ibu Siti dengan Bidan Admin (dengan lampiran) ---
-        $konsultasi2 = Konsultasi::create([
-            'ibu_id' => $ibuSiti->id,
-            'bidan_id' => $bidanAdmin->id,
-            'judul' => 'Hasil USG dan Keluhan Nyeri Punggung',
-            'status' => 'selesai',
-            'is_read_bidan' => true,
-            'is_read_ibu' => true,
-        ]);
-
-        $pesan2_1 = PesanKonsultasi::create([
-            'konsultasi_id' => $konsultasi2->id,
-            'pengirim_id' => $ibuSiti->id,
-            'pesan' => 'Selamat siang Bidan, ini hasil USG saya (terlampir) dan saya juga sering merasakan nyeri punggung, apakah ada tips untuk menguranginya?',
-            'is_read' => true,
-        ]);
-
-        LampiranKonsultasi::create([
-            'pesan_id' => $pesan2_1->id,
-            'nama_file' => 'hasil_usg_siti_aminah.pdf',
-            'path_file' => 'attachments/usg_siti_aminah.pdf', // Example path
-            'tipe_file' => 'application/pdf',
-            'ukuran_file' => 512, // KB
-        ]);
-
-        $pesan2_2 = PesanKonsultasi::create([
-            'konsultasi_id' => $konsultasi2->id,
-            'pengirim_id' => $bidanAdmin->id,
-            'pesan' => 'Siang Ibu Siti, terima kasih sudah mengirim hasil USG. Semua terlihat baik. Untuk nyeri punggung, coba gunakan kompres hangat dan lakukan peregangan ringan. Hindari mengangkat beban berat. Jika nyeri berlanjut, kita bisa jadwalkan pemeriksaan fisik.',
-            'is_read' => true,
-        ]);
+        $statuses = ['aktif', 'selesai', 'ditutup'];
         
-        // --- Konsultasi 3: Ditutup, Ibu Fatimah dengan Bidan Admin ---
-        $konsultasi3 = Konsultasi::create([
-            'ibu_id' => $ibuFatimah->id,
-            'bidan_id' => $bidanAdmin->id,
-            'judul' => 'Pertanyaan Tentang Makanan Pantangan',
-            'status' => 'ditutup',
-            'is_read_bidan' => true,
-            'is_read_ibu' => true,
-        ]);
+        foreach ($ibuHamils as $index => $ibu) {
+            $status = $statuses[array_rand($statuses)];
+            $judul = $judulKonsultasi[array_rand($judulKonsultasi)];
+            
+            $createdAt = now()->subDays(rand(1, 45));
 
-        $pesan3_1 = PesanKonsultasi::create([
-            'konsultasi_id' => $konsultasi3->id,
-            'pengirim_id' => $ibuFatimah->id,
-            'pesan' => 'Bidan, apakah ada makanan tertentu yang harus saya hindari selama kehamilan? Terutama seafood.',
-            'is_read' => true,
-        ]);
+            $konsultasi = Konsultasi::create([
+                'ibu_id' => $ibu->id,
+                'bidan_id' => $bidanAdmin->id,
+                'judul' => $judul,
+                'status' => $status,
+                'is_read_bidan' => $status === 'selesai' || $status === 'ditutup',
+                'is_read_ibu' => true,
+                'created_at' => $createdAt,
+            ]);
 
-        $pesan3_2 = PesanKonsultasi::create([
-            'konsultasi_id' => $konsultasi3->id,
-            'pengirim_id' => $bidanAdmin->id,
-            'pesan' => 'Beberapa jenis seafood dengan merkuri tinggi sebaiknya dihindari. Namun, seafood rendah merkuri seperti salmon atau udang baik untuk omega-3. Hindari juga makanan mentah atau setengah matang. Konsultasi ini saya tutup karena sudah terjawab ya Bu.',
-            'is_read' => true,
-        ]);
+            $pesanIdx = array_rand($pesanIbu);
+            
+            PesanKonsultasi::create([
+                'konsultasi_id' => $konsultasi->id,
+                'pengirim_id' => $ibu->id,
+                'pesan' => $pesanIbu[$pesanIdx],
+                'is_read' => true,
+                'created_at' => $createdAt,
+            ]);
+
+            if ($status !== 'ditutup') {
+                PesanKonsultasi::create([
+                    'konsultasi_id' => $konsultasi->id,
+                    'pengirim_id' => $bidanAdmin->id,
+                    'pesan' => $pesanBidan[$pesanIdx],
+                    'is_read' => $status === 'selesai',
+                    'created_at' => $createdAt->addHours(rand(1, 24)),
+                ]);
+            }
+
+            if ($status === 'aktif' && $index % 2 === 0) {
+                PesanKonsultasi::create([
+                    'konsultasi_id' => $konsultasi->id,
+                    'pengirim_id' => $ibu->id,
+                    'pesan' => 'Terima kasih Bidan atas informasinya. Apakah ada pantangan lain yang harus saya hindari?',
+                    'is_read' => false,
+                    'created_at' => now()->subHours(rand(1, 12)),
+                ]);
+            }
+
+            if ($index < 15) {
+                $status2 = rand(0, 1) ? 'selesai' : 'ditutup';
+                $konsultasi2 = Konsultasi::create([
+                    'ibu_id' => $ibu->id,
+                    'bidan_id' => $bidanAdmin->id,
+                    'judul' => $judulKonsultasi[array_rand($judulKonsultasi)],
+                    'status' => $status2,
+                    'is_read_bidan' => true,
+                    'is_read_ibu' => true,
+                    'created_at' => now()->subDays(rand(46, 90)),
+                ]);
+
+                PesanKonsultasi::create([
+                    'konsultasi_id' => $konsultasi2->id,
+                    'pengirim_id' => $ibu->id,
+                    'pesan' => 'Bidan, saya ingin konsultasi tentang...',
+                    'is_read' => true,
+                    'created_at' => now()->subDays(rand(46, 90)),
+                ]);
+
+                PesanKonsultasi::create([
+                    'konsultasi_id' => $konsultasi2->id,
+                    'pengirim_id' => $bidanAdmin->id,
+                    'pesan' => 'Baik Ibu, terima kasih sudah berkonsultasi. Condition normal ya, tetap jaga kesehatan.',
+                    'is_read' => true,
+                    'created_at' => now()->subDays(rand(40, 85)),
+                ]);
+            }
+        }
     }
 }

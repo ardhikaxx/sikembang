@@ -6,87 +6,96 @@ use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Booking;
 use App\Models\JadwalUlangBooking;
-// No Faker needed for hardcoded data
-// use Faker\Factory as Faker;
 
 class BookingSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        // No Faker needed
-        // $faker = Faker::create('id_ID');
-
-        // Get specific Bidan and Ibu Hamil users
         $bidanAdmin = User::where('email', 'bidan@sikembang.com')->first();
-        $ibuFatimah = User::where('email', 'fatimah.azzahra@sikembang.com')->first();
-        $ibuSiti = User::where('email', 'siti.aminah@sikembang.com')->first();
+        $ibuHamils = User::where('role', 'ibu_hamil')->get();
 
-        // Ensure users exist
-        if (!$bidanAdmin || !$ibuFatimah || !$ibuSiti) {
-            $this->command->info('Required Bidan or Ibu Hamil users not found. Skipping Booking seeding.');
+        if (!$bidanAdmin) {
+            $this->command->info('Bidan not found. Skipping Booking seeding.');
             return;
         }
 
-        // --- Booking 1: Menunggu, Ibu Fatimah dengan Bidan Admin ---
-        Booking::create([
-            'ibu_id' => $ibuFatimah->id,
-            'bidan_id' => $bidanAdmin->id,
-            'tanggal_booking' => '2025-03-10',
-            'jam_booking' => '10:00:00',
-            'jenis' => 'offline',
-            'keluhan' => 'Konsultasi rutin kehamilan trimester kedua.',
-            'status' => 'menunggu',
-            'catatan_bidan' => null,
-            'alasan_tolak' => null,
-        ]);
+        $statuses = ['menunggu', 'diterima', 'ditolak', 'selesai', 'dijadwalkan_ulang'];
+        $jenises = ['offline', 'online'];
+        $keluhans = [
+            'Konsultasi rutin pemeriksaan kehamilan',
+            'Pemeriksaan USG lanjutan',
+            'Konsultasi hasil laboratorium',
+            'Keluhan mual dan pusing',
+            'Pemantauan perkembangan janin',
+            'Kontrol setelah pemeriksaan sebelumnya',
+            'Konsultasi nutrisi kehamilan',
+            'Pemeriksaan tekanan darah',
+            'Konsultasi persiapan persalinan',
+            'Pemeriksaan denyut jantung bayi',
+        ];
 
-        // --- Booking 2: Diterima, Ibu Siti dengan Bidan Admin ---
-        Booking::create([
-            'ibu_id' => $ibuSiti->id,
-            'bidan_id' => $bidanAdmin->id,
-            'tanggal_booking' => '2025-03-15',
-            'jam_booking' => '14:30:00',
-            'jenis' => 'online',
-            'keluhan' => 'Diskusi hasil pemeriksaan lab terbaru.',
-            'status' => 'diterima',
-            'catatan_bidan' => 'Siapkan hasil lab dan pertanyaan.',
-            'alasan_tolak' => null,
-        ]);
+        $tanggalBookingBase = now()->addDays(-10);
 
-        // --- Booking 3: Dijadwalkan Ulang, Ibu Fatimah dengan Bidan Admin ---
-        $bookingRescheduled = Booking::create([
-            'ibu_id' => $ibuFatimah->id,
-            'bidan_id' => $bidanAdmin->id,
-            'tanggal_booking' => '2025-03-05', // Original date
-            'jam_booking' => '09:00:00', // Original time
-            'jenis' => 'offline',
-            'keluhan' => 'Pemeriksaan rutin, namun ada keperluan mendadak.',
-            'status' => 'dijadwalkan_ulang',
-            'catatan_bidan' => null,
-            'alasan_tolak' => null,
-        ]);
+        foreach ($ibuHamils as $index => $ibu) {
+            $tanggal = $tanggalBookingBase->copy()->addDays(rand(1, 60))->format('Y-m-d');
+            $status = $statuses[array_rand($statuses)];
+            $jenis = $jenises[array_rand($jenises)];
+            $keluhan = $keluhans[array_rand($keluhans)];
+            
+            $booking = Booking::create([
+                'ibu_id' => $ibu->id,
+                'bidan_id' => $bidanAdmin->id,
+                'tanggal_booking' => $tanggal,
+                'jam_booking' => sprintf('%02d:00:00', rand(8, 16)),
+                'jenis' => $jenis,
+                'keluhan' => $keluhan,
+                'status' => $status,
+                'catatan_bidan' => $status === 'diterima' ? 'Booking diterima, siapkan pertanyaan untuk diskusi.' : null,
+                'alasan_tolak' => $status === 'ditolak' ? 'Jadwal bidan penuh pada tanggal tersebut.' : null,
+                'created_at' => now()->subDays(rand(1, 30)),
+            ]);
 
-        JadwalUlangBooking::create([
-            'booking_id' => $bookingRescheduled->id,
-            'tanggal_baru' => '2025-03-12',
-            'jam_baru' => '11:00:00',
-            'alasan' => 'Bidan ada acara mendesak, diganti tanggal 12 Maret jam 11 pagi.',
-        ]);
+            if ($status === 'dijadwalkan_ulang') {
+                JadwalUlangBooking::create([
+                    'booking_id' => $booking->id,
+                    'tanggal_baru' => date('Y-m-d', strtotime($tanggal . ' +3 days')),
+                    'jam_baru' => sprintf('%02d:00:00', rand(9, 15)),
+                    'alasan' => 'Jadwal bidan bersamaan dengan kegiatan lain, diganti hari berikutnya.',
+                ]);
+            }
 
-        // --- Booking 4: Ditolak, Ibu Siti dengan Bidan Admin ---
-        Booking::create([
-            'ibu_id' => $ibuSiti->id,
-            'bidan_id' => $bidanAdmin->id,
-            'tanggal_booking' => '2025-03-20',
-            'jam_booking' => '16:00:00',
-            'jenis' => 'online',
-            'keluhan' => 'Konsultasi tentang pusing yang sering muncul.',
-            'status' => 'ditolak',
-            'catatan_bidan' => null,
-            'alasan_tolak' => 'Jadwal bidan penuh, disarankan booking ulang di lain hari.',
-        ]);
+            if ($index % 4 === 0) {
+                $status2 = rand(0, 1) ? 'selesai' : 'ditolak';
+                $tanggal2 = $tanggalBookingBase->copy()->subDays(rand(1, 30))->format('Y-m-d');
+                
+                Booking::create([
+                    'ibu_id' => $ibu->id,
+                    'bidan_id' => $bidanAdmin->id,
+                    'tanggal_booking' => $tanggal2,
+                    'jam_booking' => sprintf('%02d:00:00', rand(8, 16)),
+                    'jenis' => $jenises[array_rand($jenises)],
+                    'keluhan' => $keluhans[array_rand($keluhans)],
+                    'status' => $status2,
+                    'catatan_bidan' => $status2 === 'selesai' ? 'Pemeriksaan selesai, kondisi ibu dan bayi sehat.' : null,
+                    'alasan_tolak' => $status2 === 'ditolak' ? 'Ibu tidak hadir tanpa konfirmasi.' : null,
+                    'created_at' => now()->subDays(rand(31, 60)),
+                ]);
+            }
+
+            if ($index % 3 === 0) {
+                Booking::create([
+                    'ibu_id' => $ibu->id,
+                    'bidan_id' => $bidanAdmin->id,
+                    'tanggal_booking' => now()->addDays(rand(3, 14))->format('Y-m-d'),
+                    'jam_booking' => sprintf('%02d:00:00', rand(8, 16)),
+                    'jenis' => $jenises[array_rand($jenises)],
+                    'keluhan' => $keluhans[array_rand($keluhans)],
+                    'status' => 'menunggu',
+                    'catatan_bidan' => null,
+                    'alasan_tolak' => null,
+                    'created_at' => now()->subHours(rand(1, 72)),
+                ]);
+            }
+        }
     }
 }
