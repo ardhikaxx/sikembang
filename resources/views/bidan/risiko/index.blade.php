@@ -45,7 +45,7 @@
                                 $today = new \DateTime();
                                 $minggu = floor($hpht->diff($today)->days / 7);
                                 @endphp
-                                <span class="badge bg-primary bg-opacity-10 text-primary">
+                                <span class="badge bg-primary">
                                     {{ $minggu }} minggu
                                 </span>
                                 @else
