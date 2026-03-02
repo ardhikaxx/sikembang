@@ -83,7 +83,7 @@ $user = Auth::user();
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('bidan.risiko.*') ? 'active' : '' }}" href="{{ route('bidan.risiko.index') }}">
-                                <span class="nav-icon"><i class="fa-solid fa-heart-exclamation"></i></span>
+                                <span class="nav-icon"><i class="fa-solid fa-clipboard-check"></i></span>
                                 <span class="nav-text">Penilaian Risiko</span>
                                 @if(request()->routeIs('bidan.risiko.*'))
                                 <span class="nav-indicator"></span>

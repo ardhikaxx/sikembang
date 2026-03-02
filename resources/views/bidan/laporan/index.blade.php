@@ -30,7 +30,7 @@
             <div class="card card-sikembang h-100">
                 <div class="card-body text-center py-4">
                     <div class="icon-box-large bg-danger bg-opacity-10 text-danger rounded-circle mx-auto mb-4">
-                        <i class="fa-solid fa-heart-exclamation fa-2x"></i>
+                        <i class="fa-solid fa-clipboard-list fa-2x"></i>
                     </div>
                     <h5 class="fw-bold">Data Ibu per Risiko</h5>
                     <p class="text-muted mb-4">Pie chart distribusi risiko</p>

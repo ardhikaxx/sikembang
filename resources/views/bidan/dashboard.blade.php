@@ -118,7 +118,7 @@
         <div class="col-md-6 mb-4">
             <div class="card card-sikembang h-100">
                 <div class="card-header card-header-primary d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="fa-solid fa-heart-exclamation me-2"></i>Ibu dengan Risiko Tinggi</h5>
+                    <h5 class="mb-0"><i class="fa-solid fa-triangle-exclamation me-2"></i>Ibu dengan Risiko Tinggi</h5>
                     <a href="{{ route('bidan.risiko.index') }}" class="text-white opacity-75 text-decoration-none small">Lihat Semua</a>
                 </div>
                 <div class="card-body p-0">
@@ -141,7 +141,7 @@
                     </div>
                     @else
                     <div class="empty-state py-4">
-                        <i class="fa-solid fa-heart-circle-check"></i>
+                        <i class="fa-solid fa-circle-check"></i>
                         <h6>Tidak Ada Risiko Tinggi</h6>
                         <p class="text-muted mb-0">Semua ibu dalam kondisi baik</p>
                     </div>
