@@ -519,13 +519,15 @@
 
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
+            padding: 60px 30px;
             color: var(--text-muted);
             background: linear-gradient(135deg, #fdf2f8 0%, #fce4f3 100%);
-            border-radius: 16px;
-            margin: 20px;
+            border-radius: 20px;
+            margin: 24px;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 20px rgba(236, 30, 136, 0.1);
+            border: 2px dashed rgba(236, 30, 136, 0.2);
         }
 
         .empty-state::before {
@@ -546,18 +548,26 @@
 
         .empty-state i {
             font-size: 5rem;
-            color: var(--primary-light);
-            margin-bottom: 20px;
+            color: var(--primary);
+            margin-bottom: 24px;
             position: relative;
             z-index: 1;
-            opacity: 0.6;
+            opacity: 0.5;
+            display: inline-block;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            line-height: 80px;
+            box-shadow: 0 8px 25px rgba(236, 30, 136, 0.15);
         }
 
         .empty-state h5 {
             color: var(--text-dark);
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             font-weight: 700;
-            font-size: 1.25rem;
+            font-size: 1.35rem;
             position: relative;
             z-index: 1;
         }
@@ -568,13 +578,37 @@
             position: relative;
             z-index: 1;
             max-width: 400px;
-            margin: 0 auto;
+            margin: 0 auto 24px auto;
+            line-height: 1.6;
         }
 
         .empty-state .btn {
             position: relative;
             z-index: 1;
-            margin-top: 20px;
+            padding: 14px 32px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(236, 30, 136, 0.3);
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .empty-state .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(236, 30, 136, 0.4);
+        }
+
+        .empty-state .btn i {
+            font-size: 1rem;
+            width: auto;
+            height: auto;
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            margin: 0;
         }
 
         .btn-action {
