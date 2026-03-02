@@ -1724,87 +1724,96 @@
             display: none !important;
         }
 
-        /* Pagination - Modern Style */
+        /* Pagination - Clean & Beautiful Style */
         div.dataTables_paginate {
             display: flex !important;
             justify-content: center !important;
-            gap: 8px;
-            padding: 20px 0 0 0 !important;
+            align-items: center;
+            gap: 4px;
+            padding: 20px 0 12px 0 !important;
             margin: 0;
             width: 100%;
         }
 
         ul.pagination {
-            display: flex;
-            gap: 8px;
+            display: inline-flex;
+            gap: 4px;
             margin: 0;
             padding: 0;
             list-style: none;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 6px 12px;
+            border-radius: 50px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
         }
 
         ul.pagination li {
             list-style: none;
+            display: inline-flex;
         }
 
         ul.pagination .paginate_button {
             border: none !important;
-            border-radius: 12px !important;
+            border-radius: 50% !important;
             padding: 0 !important;
             margin: 0 !important;
-            width: 44px !important;
-            height: 44px !important;
-            display: flex !important;
+            min-width: 36px !important;
+            height: 36px !important;
+            display: inline-flex !important;
             align-items: center !important;
             justify-content: center !important;
             font-weight: 600 !important;
-            font-size: 0.875rem !important;
-            color: #4b5563 !important;
-            background: #ffffff !important;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            font-size: 0.8rem !important;
+            color: #495057 !important;
+            background: transparent !important;
+            transition: all 0.2s ease !important;
             cursor: pointer;
-            border: 2px solid transparent !important;
+            position: relative;
         }
 
         ul.pagination .paginate_button:hover:not(.current):not(.disabled) {
-            background: linear-gradient(135deg, #fdf2f8 0%, #fce4f3 100%) !important;
             color: #EC1E88 !important;
-            transform: translateY(-3px) !important;
-            box-shadow: 0 8px 20px rgba(236, 30, 136, 0.25) !important;
-            border-color: #EC1E88 !important;
+            background: rgba(236, 30, 136, 0.1) !important;
         }
 
         ul.pagination .paginate_button.current {
             background: linear-gradient(135deg, #EC1E88 0%, #c4166e 100%) !important;
             color: #ffffff !important;
-            box-shadow: 0 6px 16px rgba(236, 30, 136, 0.35) !important;
-            transform: translateY(-2px) !important;
-            border-color: transparent !important;
+            box-shadow: 0 2px 8px rgba(236, 30, 136, 0.35) !important;
+            min-width: 38px !important;
+            height: 38px !important;
+            font-weight: 700 !important;
         }
 
         ul.pagination .paginate_button.current:hover {
             background: linear-gradient(135deg, #c4166e 0%, #a6125a 100%) !important;
-            box-shadow: 0 8px 24px rgba(236, 30, 136, 0.45) !important;
-            transform: translateY(-3px) !important;
         }
 
         ul.pagination .paginate_button.disabled {
             opacity: 0.3;
             cursor: not-allowed;
-            box-shadow: none !important;
-            background: #f9fafb !important;
+            background: transparent !important;
         }
 
         ul.pagination .paginate_button.disabled:hover {
-            background: #f9fafb !important;
-            color: #4b5563 !important;
-            transform: none !important;
-            box-shadow: none !important;
+            background: transparent !important;
+            color: #495057 !important;
         }
 
         ul.pagination .paginate_button i {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 900;
+        }
+
+        /* First/Last/Next/Previous buttons */
+        ul.pagination .paginate_button.first,
+        ul.pagination .paginate_button.last,
+        ul.pagination .paginate_button.next,
+        ul.pagination .paginate_button.previous {
+            font-weight: 700 !important;
+            font-size: 0.7rem !important;
+            letter-spacing: 0.5px;
         }
 
         /* Processing */
@@ -1946,10 +1955,10 @@
                 "searchPlaceholder": "Ketik untuk mencari...",
                 "zeroRecords": '<div class="text-center py-5"><i class="fa-solid fa-magnifying-glass text-secondary" style="font-size: 4rem; opacity: 0.4;"></i><p class="mt-3 text-secondary fw-medium">Tidak ada data yang cocok</p></div>',
                 "paginate": {
-                    "first": '<i class="fa-solid fa-angles-left"></i>',
-                    "last": '<i class="fa-solid fa-angles-right"></i>',
-                    "next": '<i class="fa-solid fa-angle-right"></i>',
-                    "previous": '<i class="fa-solid fa-angle-left"></i>'
+                    "first": '&#171;',
+                    "last": '&#187;',
+                    "next": '&#8250;',
+                    "previous": '&#8249;'
                 }
             };
             
