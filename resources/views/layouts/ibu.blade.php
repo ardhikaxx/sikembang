@@ -74,7 +74,7 @@ $user = Auth::user();
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ request()->routeIs('ibu.catatan.*') ? 'active' : '' }}" href="{{ route('ibu.catatan.index') }}">
-                                <span class="nav-icon"><i class="fa-solid fa-notebook"></i></span>
+                                <span class="nav-icon"><i class="fa-solid fa-file-lines"></i></span>
                                 <span class="nav-text">Catatan Kehamilan</span>
                                 @if(request()->routeIs('ibu.catatan.*'))
                                 <span class="nav-indicator"></span>

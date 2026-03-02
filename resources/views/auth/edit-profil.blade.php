@@ -45,7 +45,7 @@
 
                         @if ($user->role === 'ibu_hamil')
                         <div class="section-header mt-4 mb-3">
-                            <h5 class="fw-bold text-primary"><i class="fa-solid fa-person pregnant me-2"></i>Data Profil Ibu Hamil</h5>
+                            <h5 class="fw-bold text-primary"><i class="fa-solid fa-person me-2"></i>Data Profil Ibu Hamil</h5>
                             <hr>
                         </div>
 
