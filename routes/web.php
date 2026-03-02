@@ -13,6 +13,7 @@ use App\Http\Controllers\Bidan\DataIbuController as BidanDataIbuController;
 use App\Http\Controllers\Bidan\KonsultasiController as BidanKonsultasiController;
 use App\Http\Controllers\Bidan\BookingController as BidanBookingController;
 use App\Http\Controllers\Bidan\EdukasiController as BidanEdukasiController;
+use App\Http\Controllers\Bidan\ExportController;
 use App\Http\Controllers\Bidan\RisikoController as BidanRisikoController;
 use App\Http\Controllers\Bidan\LaporanController as BidanLaporanController;
 use Illuminate\Support\Facades\Auth;
@@ -76,6 +77,10 @@ Route::prefix('bidan')->middleware(['auth'])->group(function () {
     Route::post('/booking/{id}/tolak', [BidanBookingController::class, 'tolak'])->name('bidan.booking.tolak.post');
     Route::post('/booking/{id}/jadwal-ulang', [BidanBookingController::class, 'jadwalUlang'])->name('bidan.booking.jadwal-ulang');
     Route::get('/booking/{id}/selesai', [BidanBookingController::class, 'selesai'])->name('bidan.booking.selesai');
+    
+    Route::get('/export/ibu', [ExportController::class, 'exportIbuExcel'])->name('bidan.export.ibu');
+    Route::get('/export/booking', [ExportController::class, 'exportBookingExcel'])->name('bidan.export.booking');
+    Route::get('/export/konsultasi', [ExportController::class, 'exportKonsultasiExcel'])->name('bidan.export.konsultasi');
     
     Route::get('/edukasi', [BidanEdukasiController::class, 'index'])->name('bidan.edukasi.index');
     Route::get('/edukasi/create', [BidanEdukasiController::class, 'create'])->name('bidan.edukasi.create');

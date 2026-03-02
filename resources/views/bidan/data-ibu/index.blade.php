@@ -9,6 +9,11 @@
             <h4 class="mb-1">Data Ibu Hamil</h4>
             <p class="text-muted mb-0">Kelola data ibu hamil terdaftar</p>
         </div>
+        <div>
+            <a href="{{ route('bidan.export.ibu') }}" class="btn btn-success btn-sm">
+                <i class="fa-solid fa-file-excel me-1"></i>Export Excel
+            </a>
+        </div>
     </div>
 
     <div class="card card-sikembang">

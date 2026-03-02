@@ -9,6 +9,11 @@
             <h4 class="mb-1">Konsultasi</h4>
             <p class="text-muted mb-0">Kelola konsultasi dengan ibu hamil</p>
         </div>
+        <div>
+            <a href="{{ route('bidan.export.konsultasi') }}" class="btn btn-success btn-sm">
+                <i class="fa-solid fa-file-excel me-1"></i>Export Excel
+            </a>
+        </div>
     </div>
 
     <div class="card card-sikembang">

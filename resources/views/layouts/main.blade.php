@@ -555,12 +555,6 @@
             opacity: 0.5;
             display: inline-block;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            line-height: 80px;
-            box-shadow: 0 8px 25px rgba(236, 30, 136, 0.15);
         }
 
         .empty-state h5 {
@@ -583,9 +577,10 @@
         }
 
         .empty-state .btn {
+            height: 40px;
             position: relative;
             z-index: 1;
-            padding: 8px 18px;
+            padding: 20px;
             font-weight: 600;
             font-size: 0.8rem;
             border-radius: 8px;
@@ -606,8 +601,7 @@
             width: auto;
             height: auto;
             padding: 0;
-            background: transparent;
-            box-shadow: none;
+            color: var(--white);
             margin: 0;
         }
 

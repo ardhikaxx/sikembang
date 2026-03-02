@@ -6,8 +6,13 @@
 <div class="fade-in">
     <div class="page-header d-flex justify-content-between align-items-center">
         <div>
-            <h4 class="mb-1">Kelola Booking</h4>
+            <h4 class="mbelola Booking</h-1">K4>
             <p class="text-muted mb-0">Kelola jadwal konsultasi ibu hamil</p>
+        </div>
+        <div>
+            <a href="{{ route('bidan.export.booking') }}" class="btn btn-success btn-sm">
+                <i class="fa-solid fa-file-excel me-1"></i>Export Excel
+            </a>
         </div>
     </div>
 
