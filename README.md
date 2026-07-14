@@ -1,4 +1,4 @@
-# SIKEMBANG - Sistem Informasi Kesehatan Ibu dan Anak Berbasis Web
+﻿# SIKEMBANG - Sistem Informasi Kesehatan Ibu dan Anak Berbasis Web
 
 Selamat datang di repositori SIKEMBANG! 👋
 
@@ -107,7 +107,7 @@ Jika project ini bermanfaat, Anda dapat mendukung pengembangan selanjutnya melal
 
 <div align="center">
 
-![QRIS](public/assets/qris.png)
+<img src="public/assets/qris.png" alt="QRIS" width="250" />
 
 **Scan QRIS di atas untuk berdonasi**
 
